@@ -1,0 +1,19 @@
+{
+    "name": "company4-dev/fuse",
+    "description": "Opinionated Laravel Efficiency",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Fuse\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jas-n",
+            "homepage": "https://github.com/Jas-n"
+        }
+    ],
+    "require": {
+        "php": "^8.4"
+    }
+}
