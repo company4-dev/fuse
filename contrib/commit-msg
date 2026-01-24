@@ -1,0 +1,37 @@
+#!/bin/bash
+ALL_STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR HEAD)
+COMMIT_MSG_FILE="$1"
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+LOG_PATH=../../../../logs/pre-commit.log
+
+# Check if all staged files are in the documentation folder
+ALL_DOCS=true
+for file in $ALL_STAGED_FILES; do
+    if [[ ! $file =~ ^documentation/ ]]; then
+        ALL_DOCS=false
+        break
+    fi
+done
+
+# If all changes are in the docs folder, add [skip ci] to the commit message
+if $ALL_DOCS; then
+    if [[ $COMMIT_MSG != *"[skip ci]"* ]]; then
+        UPDATED_MSG="$COMMIT_MSG [skip ci]"
+        UPDATED_MSG="$(echo "$UPDATED_MSG" | sed 's/[[:space:]]\+$//')"  # Trim trailing space
+        echo "$UPDATED_MSG" > "$COMMIT_MSG_FILE"
+        echo "[$(date +%T)] Added [skip ci] to commit message." >> "$LOG_PATH"
+    fi
+else
+    if [[ $COMMIT_MSG == *"[skip ci]"* ]]; then
+        UPDATED_MSG="${COMMIT_MSG//[skip ci]/}"
+        UPDATED_MSG="${COMMIT_MSG//\[skip ci\]/}"
+
+        echo "$UPDATED_MSG" > "$COMMIT_MSG_FILE"
+        echo "[$(date +%T)] Removed [skip ci] from commit message." >> "$LOG_PATH"
+    fi
+fi
+
+# Starting message is within the pre-commit hook
+echo "[$(date +%T)] Finished JellyBelly commit" >> $LOG_PATH
+# Exit successfully
+exit 0

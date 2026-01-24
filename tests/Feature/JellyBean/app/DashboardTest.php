@@ -1,0 +1,19 @@
+<?php
+
+// use App\Models\User;
+
+// test('guests are redirected to the login page', function () {
+//     $response = $this->get('/app');
+
+//     $response->assertRedirect('/login');
+// })->only();
+
+// test('authenticated users can visit the dashboard', function () {
+//     $user = User::factory()->create();
+//     $this->actingAs($user);
+
+//     $response = $this->get('/app');
+//     $response
+//         ->assertStatus(200)
+//         ->assertSee('Dashboard');
+// })->only();

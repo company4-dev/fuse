@@ -1,0 +1,21 @@
+@php
+    $attributes = $unescapedForwardedAttributes ?? $attributes;
+@endphp
+
+@props([
+    'variant' => 'outline',
+])
+
+@php
+    $classes = Flux::classes('shrink-0')
+        ->add(match($variant) {
+            'outline' => '[:where(&)]:size-6',
+            'solid' => '[:where(&)]:size-6',
+            'mini' => '[:where(&)]:size-5',
+            'micro' => '[:where(&)]:size-4',
+        });
+@endphp
+{{-- Your SVG code here: --}}
+<svg {{ $attributes->class($classes) }} data-flux-icon aria-hidden="true" viewBox="0 0 448 512" fill="currentColor">
+    <path style="opacity:0.4" d="M96 96A32 32 0 1 1 32 96a32 32 0 1 1 64 0zm0 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm0 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM256 96a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm0 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm0 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM416 96a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm0 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm0 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0z"/><path class="fa-primary" d="M96 96A32 32 0 1 1 32 96a32 32 0 1 1 64 0zM64 32a64 64 0 1 0 0 128A64 64 0 1 0 64 32zM96 256a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM64 192a64 64 0 1 0 0 128 64 64 0 1 0 0-128zm0 192a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM0 416a64 64 0 1 0 128 0A64 64 0 1 0 0 416zM256 96a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM224 32a64 64 0 1 0 0 128 64 64 0 1 0 0-128zm0 192a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm-64 32a64 64 0 1 0 128 0 64 64 0 1 0 -128 0zm96 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm-32-64a64 64 0 1 0 0 128 64 64 0 1 0 0-128zM384 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM320 96a64 64 0 1 0 128 0A64 64 0 1 0 320 96zm96 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm-32-64a64 64 0 1 0 0 128 64 64 0 1 0 0-128zm0 192a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm-64 32a64 64 0 1 0 128 0 64 64 0 1 0 -128 0z"/>
+</svg>

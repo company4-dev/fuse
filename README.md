@@ -24,15 +24,21 @@
 - [ ] Run coding standards on everything
   - [ ] Rector
   - [ ] Pint
+- [ ] Contrib
+  - [ ] Update scripts
+  - [ ] Use scripts
 - [ ] Composer Install Scripts
   - [ ] Install
     - [ ] Replace all config files with common overrides. E.g.
       - [ ] App Name
       - [ ] Database Config
       - [ ] Logging
+      - [ ] Extend controller from Fuse Controller
     - [ ] Remove all route files
+    - [ ] Remove default database migrations
   - [ ] Update
     - [ ] Install any libraries
     - [ ] Update any files
       - [ ] Git hooks
       - [ ] GitHub actions
+- [ ] Update documentation

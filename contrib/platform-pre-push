@@ -1,0 +1,87 @@
+#!/bin/bash
+COVERAGE_FILE="coverage.txt"
+LOG_PATH=../../storage/logs/git-hooks.log
+PLATFORM="$(basename $(pwd))"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+PHP_FILES=$(git diff --name-only --diff-filter=d --invert-match @{push} -- '*.php')
+
+if [ -f $COVERAGE_FILE ]; then
+    COVERAGE=$(cat $COVERAGE_FILE)
+else
+    COVERAGE=0
+fi
+
+open_vs_code() {
+    echo "" &> /dev/null
+    if code $LOG_PATH &> /dev/null; then
+        echo "" &> /dev/null
+    else
+        cat $LOG_PATH
+    fi
+    echo -e "[\e[32m$(date +%T)\e[97m] \e[31mOne or More Checks failed. Opened VSCode\e[97m" >> $LOG_PATH
+    exit 1
+}
+
+echo -e "[\e[32m$(date +%T)\e[97m] Starting pre-push" >> $LOG_PATH
+
+if [ "$PHP_FILES" != "" ]
+then
+    echo -e "  [\e[32m$(date +%T)\e[97m] Processing \e[36m$(wc -l <<< $PHP_FILES)\e[0m PHP files..." >> $LOG_PATH
+
+    # Rector
+    echo -e "    [\e[32m$(date +%T)\e[97m] Running Rector..." >> $LOG_PATH
+    RECTOR_OUTPUT=$(../../vendor/bin/rector process --config ../../rector.php $PHP_FILES 2>&1)
+    if echo "$RECTOR_OUTPUT" | grep -q "file has been changed\|files have been changed"; then
+        echo "$RECTOR_OUTPUT" >> $LOG_PATH
+    fi
+
+    # Pint
+    echo -e "    [\e[32m$(date +%T)\e[97m] Running Pint..." >> $LOG_PATH
+    PINT_OUTPUT=$(../../vendor/bin/pint --parallel $PHP_FILES 2>&1)
+    if echo "$PINT_OUTPUT" | grep -q "FIXED"; then
+        echo "$PINT_OUTPUT" >> $LOG_PATH
+    fi
+
+    # Larastan
+    echo -e "    [\e[32m$(date +%T)\e[97m] Running Larastan..." >> $LOG_PATH
+    PHPSTAN_OUTPUT=$(../../vendor/bin/phpstan analyse --configuration=../../phpstan.neon $PHP_FILES 2>&1)
+    PHPSTAN_EXIT_CODE=$?
+    if [ $PHPSTAN_EXIT_CODE -ne 0 ]; then
+        echo "$PHPSTAN_OUTPUT" >> $LOG_PATH
+    fi
+
+    # PHPCS
+    echo -e "    [\e[32m$(date +%T)\e[97m] Running PHPCS..." >> $LOG_PATH
+    PHPCS_OUTPUT=$(../../vendor/bin/phpcs --standard=../../phpcs.xml $PHP_FILES 2>&1)
+    if echo "$PHPCS_OUTPUT" | grep -q "ERROR"; then
+        echo "$PHPCS_OUTPUT" >> $LOG_PATH
+    fi
+
+    echo -e "  [\e[32m$(date +%T)\e[97m] Finished processing PHP files..." >> $LOG_PATH
+
+    echo -e "  [\e[32m$(date +%T)\e[97m] Running PHP Tests with minimum coverage of \e[96m$COVERAGE%\e[97m" >> $LOG_PATH 2>&1
+    ../../vendor/bin/pest --coverage --configuration=$PROJECT_ROOT/phpunit.xml --min=$COVERAGE --parallel --stop-on-failure
+    PEST_EXIT_CODE_1=$?
+    ../../vendor/bin/pest --type-coverage --configuration=$PROJECT_ROOT/phpunit.xml --min=$COVERAGE --parallel --stop-on-failure >> $LOG_PATH 2>&1
+    PEST_EXIT_CODE_2=$?
+
+    # If Rector or Pint have modified files, add them back to staging
+    if echo "$RECTOR_OUTPUT" | grep -q "file has been changed\|files have been changed" \
+        || echo "$PINT_OUTPUT" | grep -q "FIXED"; then
+        git add $PHP_FILES
+    fi
+
+    # If there are PHPStan or PHPCS errors, open VS Code for review
+    if echo "$PHPSTAN_OUTPUT" | grep -q "ERROR" \
+        || echo "$PHPCS_OUTPUT" | grep -q "ERROR" \
+        || [ $PEST_EXIT_CODE_1 -ne 0 ] \
+        || [ $PEST_EXIT_CODE_2 -ne 0 ]; then
+        open_vs_code
+    fi
+
+    echo -e "  [\e[32m$(date +%T)\e[97m] Finished processing PHP files..." >> $LOG_PATH
+fi
+
+echo -e "  [\e[32m$(date +%T)\e[97m] Finished testing" >> $LOG_PATH
+echo -e "[\e[32m$(date +%T)\e[97m] Finished pre-push" >> $LOG_PATH
+exit 0

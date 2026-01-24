@@ -1,0 +1,35 @@
+#!/bin/bash
+LOG_PATH=./storage/logs/git-hooks.log
+
+open_vs_code() {
+    echo "" &> /dev/null
+    if code $LOG_PATH &> /dev/null; then
+        echo "" &> /dev/null
+    else
+        cat $LOG_PATH
+    fi
+    echo -e "[\e[32m$(date +%T)\e[97m] \e[31mOne or More Checks failed. Opened VSCode\e[97m" >> $LOG_PATH
+    exit 130
+}
+
+echo -e "[\e[32m$(date +%T)\e[97m] Starting pre-push" >> $LOG_PATH
+
+echo -e "  [\e[32m$(date +%T)\e[97m] Running Tests..." >> $LOG_PATH
+
+COVERAGE=$(cat ./storage/app/coverage.txt)
+
+echo -e "    [\e[32m$(date +%T)\e[97m] Coverage target: \e[36m$COVERAGE\e[0m" >> $LOG_PATH
+# Not sure what this does, but git push hangs otherwise
+exec 3>&- 4>&- 5>&- 6>&- 7>&- 8>&- 9>&-
+./vendor/bin/pest --type-coverage --min=$COVERAGE --parallel --stop-on-failure >> "$LOG_PATH" 2>&1 < /dev/null
+PEST_EXIT_CODE_1=$?
+./vendor/bin/pest --coverage --min=$COVERAGE --parallel --stop-on-failure >> "$LOG_PATH" 2>&1 < /dev/null
+PEST_EXIT_CODE_2=$?
+
+if [ $PEST_EXIT_CODE_1 -ne 0 ] || [ $PEST_EXIT_CODE_2 -ne 0 ]; then
+    open_vs_code
+fi
+
+echo -e "  [\e[32m$(date +%T)\e[97m] Finished testing..." >> $LOG_PATH
+
+echo -e "[\e[32m$(date +%T)\e[97m] Finished pre-push" >> $LOG_PATH
