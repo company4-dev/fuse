@@ -23,5 +23,13 @@
     "require": {
         "php": "^8.4"
     },
+    "scripts": {
+        "post-install-cmd": [
+            "Fuse\\Composer\\Hooks::postInstall"
+        ],
+        "post-update-cmd": [
+            "Fuse\\Composer\\Hooks::postUpdate"
+        ]
+    },
     "version": "0.2"
 }

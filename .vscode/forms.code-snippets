@@ -1,0 +1,29 @@
+{
+    // See https://code.visualstudio.com/docs/editor/userdefinedsnippets for snippet functionality
+    "Number Field": {
+		"prefix": ["number-field"],
+		"scope": "php",
+		"body": [
+			"[",
+            "    'label' => '${1:dictionary}.${2:label}',",
+            "    'min'   => 0,",
+            "    'name'  => '${3:name}',",
+            "    'type'  => 'number',",
+            "],"
+		],
+		"description": "Sets up Laravel's ajax functionality"
+	},
+    "Options Field": {
+		"prefix": ["checkbox-field", "radio-field", "options-field", "select-field"],
+		"scope": "php",
+		"body": [
+			"[",
+            "    'label'   => '${1:dictionary}.${2:label}',",
+            "    'name'    => '${3:name}',",
+            "    'options' => ${4:\\$options},",
+            "    'type'    => 'options',",
+            "],"
+		],
+		"description": "Sets up an options field."
+	},
+}

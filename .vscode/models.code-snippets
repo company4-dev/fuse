@@ -1,0 +1,108 @@
+{
+    // See https://code.visualstudio.com/docs/editor/userdefinedsnippets for snippet functionality
+    "Model Attribute": {
+		"prefix": ["attribute", "model-attribute"],
+		"scope": "php",
+		"body": [
+			"public function ${1:item}(): Attribute$2",
+            "{",
+            "    return ${3|new A,Cache::a|}ttribute(${4|fn () => null,function () {\r\n\treturn null;\r\n}|});",
+            "}"
+		],
+		"description": "Sets up Laravel's ajax functionality"
+	},
+    "Model Belongs To": {
+		"prefix": ["belongsTo", "model-belongs-to"],
+		"scope": "php",
+		"body": [
+			"public function ${1:relation}(): BelongsTo$2",
+            "{",
+            "    return \\$this->belongsTo(${3:Model}::class);",
+            "}"
+		],
+		"description": "Sets up Laravel's belongsTo functionality"
+	},
+    "Model Default Sort": {
+		"prefix": ["default_sort", "model-default-sort"],
+		"scope": "php",
+		"body": [
+			"protected static function defaultSort(): array",
+            "{",
+            "    return [",
+            "        '${1:column}' => '${2|asc,desc|}',",
+            "    ];",
+            "}"
+		],
+		"description": "Sets up the default sort for customising"
+    },
+    "Model Has One": {
+		"prefix": ["hasOne", "model-has-one"],
+		"scope": "php",
+		"body": [
+			"public function ${1:relation}(): HasOne$2",
+            "{",
+            "    return \\$this->hasOne(${3:Model}::class);",
+            "}"
+		],
+		"description": "Sets up Laravel's hasOne functionality"
+	},
+    "Model Has Many": {
+		"prefix": ["hasMany", "model-has-many"],
+		"scope": "php",
+		"body": [
+			"public function ${1:relation}(): hasMany$2",
+            "{",
+            "    return \\$this->hasMany(${3:Model}::class);",
+            "}"
+		],
+		"description": "Sets up Laravel's hasMany functionality"
+	},
+    "Model Has Many Through": {
+		"prefix": ["hasManyThrough", "model-has-many-through"],
+		"scope": "php",
+		"body": [
+			"public function ${1:relation}(): hasManyThrough$2",
+            "{",
+            "    return \\$this->jellyBeanHasManyThrough(",
+            "        ${3:ThroughModel}::class,",
+            "        ${4:TargetModel}::class,",
+            "        '${5:\\$this.primary_key}',",
+            "        '${6:${3:ThroughModel}.foreign_key_for_\\$this}',",
+            "        '${7:${3:ThroughModel}.foreign_key_for_${4:TargetModel}}',",
+            "        '${8:${4:TargetModel}.primary_key}'",
+            "    );",
+            "}"
+		],
+		"description": "A more sensible way to define a hasManyThrough relationship"
+	},
+    "Model Route": {
+		"prefix": ["route", "model-route"],
+		"scope": "php",
+		"body": [
+			"protected function route(): Attribute",
+            "{",
+            "    return new Attribute(fn () => ${1|'route',null|});",
+            "}"
+		],
+		"description": "Sets up the default sort for customising"
+    },
+    "Model Scope": {
+		"prefix": ["scope", "model-scope"],
+		"scope": "php",
+		"body": [
+			"public function scope${1:Name}(Builder \\$query)",
+            "{",
+            "    \\$query->where('${2:column}', ${3:\\$${4:value}});",
+            "}"
+		],
+		"description": "Sets up Laravel's hasOne functionality"
+	},
+    "Model Attribute Class": {
+		"scope": "php",
+		"prefix": ["Attribute::", "use attribute"],
+		"body": [
+			"use Illuminate\\Database\\Eloquent\\Casts\\Attribute;"
+		],
+		"description": "Add use for Attribute::class"
+	},
+}

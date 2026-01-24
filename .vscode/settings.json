@@ -1,0 +1,12 @@
+{
+    "cSpell.words": [
+        "CapEx",
+        "OpsFM"
+    ],
+    "search.exclude": {
+        "bootstrap/cache": true,
+        "node_modules": true,
+        "tests/Coverage": true,
+        "vendor": true
+    },
+}

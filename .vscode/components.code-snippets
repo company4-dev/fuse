@@ -1,0 +1,11 @@
+{
+    // See https://code.visualstudio.com/docs/editor/userdefinedsnippets for snippet functionality
+    "Alert Component": {
+		"prefix": ["alert-component", "callout-component"],
+		"scope": ["blade"],
+		"body": [
+            "<x-callout variant=\"${1|secondary,success,warning,danger|}\">${2}</x-callout>",
+		],
+		"description": "Inserts a standardisex Flux:callout"
+	},
+}
