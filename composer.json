@@ -39,6 +39,12 @@
         "spatie/laravel-permission": "^6.10",
         "stancl/tenancy": "^3.9"
     },
+    "repositories": {
+        "flux-pro": {
+            "type": "composer",
+            "url": "https://composer.fluxui.dev"
+        }
+    },
     "scripts": {
         "post-install-cmd": [
             "Fuse\\Composer\\Hooks::postInstall"
