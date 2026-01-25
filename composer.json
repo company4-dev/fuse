@@ -32,7 +32,6 @@
         "deployer/deployer": "*",
         "intervention/image-laravel": "^1.5",
         "kodeine/laravel-meta": "^2.2",
-        "livewire/flux": "^2.0",
         "livewire/flux-pro": "^2.3",
         "sentry/sentry-laravel": "^4.16",
         "spatie/laravel-activitylog": "^4.10",
