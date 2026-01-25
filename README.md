@@ -10,6 +10,9 @@
 }
 ```
 
+# Documentation
+For documentation on JellyBean platform, see [Documentation](---).
+
 # To Do:
 - [ ] Migrate files to Fuse
   - [ ] Stubs - Copy as neccessery

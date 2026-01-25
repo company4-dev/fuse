@@ -1,0 +1,14 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    level: 1
+
+    reportUnmatchedIgnoredErrors: true
+    checkDynamicProperties: false
+
+    checkUnusedViews: true
+    checkOctaneCompatibility: false
+
+    ignoreErrors:

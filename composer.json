@@ -5,7 +5,10 @@
     "autoload": {
         "psr-4": {
             "Fuse\\": "app/"
-        }
+        },
+        "files": [
+            "bootstrap/functions.php"
+        ]
     },
     "authors": [
         {
@@ -21,7 +24,20 @@
         }
     },
     "require": {
-        "php": "^8.4"
+        "php": "^8.4",
+        "ext-intl": "*",
+        "bjeavons/zxcvbn-php": "^1.4",
+        "company4-dev/file-vault": "^1.1",
+        "company4-dev/incremental-backups": "^1.2",
+        "deployer/deployer": "*",
+        "intervention/image-laravel": "^1.5",
+        "kodeine/laravel-meta": "^2.2",
+        "livewire/flux": "^2.0",
+        "livewire/flux-pro": "^2.3",
+        "sentry/sentry-laravel": "^4.16",
+        "spatie/laravel-activitylog": "^4.10",
+        "spatie/laravel-permission": "^6.10",
+        "stancl/tenancy": "^3.9"
     },
     "scripts": {
         "post-install-cmd": [

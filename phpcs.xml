@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<ruleset name="Non-Pint">
+    <description>Additional Standards Not Supported by Pint</description>
+
+    <file>app</file>
+    <file>config</file>
+    <file>database</file>
+    <file>public</file>
+    <file>resources</file>
+    <file>routes</file>
+    <file>tests</file>
+
+    <exclude-pattern>*/cache/*</exclude-pattern>
+    <exclude-pattern>*/*.js</exclude-pattern>
+    <exclude-pattern>*/*.css</exclude-pattern>
+    <exclude-pattern>*/*.xml</exclude-pattern>
+    <exclude-pattern>*/autoload.php</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <config name="installed_paths" value="vendor/phpcompatibility/php-compatibility" />
+
+    <!-- Code Analysis Rules - Pint doesn't handle these -->
+    <rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
+    <rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall"/>
+    <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed">
+        <exclude-pattern>app/View/Components/Form.php</exclude-pattern>
+        <exclude-pattern>app/View/Components/Form/*.php</exclude-pattern>
+    </rule>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+
+    <!-- Complexity and Quality Metrics -->
+    <rule ref="Generic.Metrics.NestingLevel">
+        <properties>
+            <property name="nestingLevel" value="7"/>
+            <property name="absoluteNestingLevel" value="15"/>
+        </properties>
+    </rule>
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="135"/>
+            <property name="absoluteLineLimit" value="135"/>
+        </properties>
+    </rule>
+
+    <!-- Naming Conventions -->
+    <rule ref="Generic.NamingConventions.ConstructorName"/>
+
+    <!-- PHP-specific Rules -->
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <rule ref="Generic.PHP.NoSilencedErrors"/>
+
+    <rule ref="Internal.NoCodeFound">
+        <exclude-pattern>*/*.blade.php</exclude-pattern>
+    </rule>
+
+    <!-- Performance Rules -->
+    <rule ref="Squiz.PHP.DisallowSizeFunctionsInLoops"/>
+
+    <rule ref="Squiz.PHP.Eval"/>
+    <rule ref="Squiz.PHP.GlobalKeyword"/>
+    <rule ref="Squiz.PHP.NonExecutableCode"/>
+
+    <!-- Scope Rules -->
+    <rule ref="Squiz.Scope.StaticThisUsage"/>
+
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+
+    <!-- Method signature validation -->
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+
+    <!-- Keep the empty statement rule we removed -->
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+
+    <arg name="colors"/>
+    <arg value="spv"/>
+    <ini name="memory_limit" value="-1"/>
+</ruleset>
