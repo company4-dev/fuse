@@ -1,0 +1,46 @@
+<?php
+
+use App\Helpers\Icons;
+use App\Helpers\Livewire;
+use Flux\Flux;
+use Platforms\{{ Platform }}\Models\{{ Model }};
+use Platforms\{{ Platform }}\View\Forms\{{ Namespace }};
+
+use function Livewire\Volt\form;
+use function Livewire\Volt\mount;
+use function Livewire\Volt\state;
+
+form({{ Form }}::class);
+
+mount(function ($id) {
+    $this->{{ model }} = {{ Model }}::findOrRedirect($id, route('{{ platform }}::{{ feature }}.list'));
+
+    $this->form->model($this->{{ model }});
+
+    Livewire::layout(
+        [
+            '{{ platform }}::{{ feature }}.list' => 'dictionary.{{ feature }}',
+            $this->{{ model }}->name,
+        ],
+        Icons::icons(),
+    );
+});
+
+state([
+    '{{ model }}' => null,
+]);
+
+$submit = fn () => $this->form->process($this, function ($validated) {
+    $this->{{ model }}->update($validated->toArray());
+
+    Flux::toast('Your changes have been saved.', variant: 'success');
+
+    return $this->redirect(route('{{ platform }}::{{ feature }}.view', $this->{{ model }}->id));
+});
+
+?>
+<div class="container">
+    <flux:card>
+        <x-form :$form />
+    </flux:card>
+</div>

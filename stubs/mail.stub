@@ -1,0 +1,23 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Helpers\Collection;
+use Illuminate\Support\Str;
+
+class {{ class }} extends BaseMail
+{
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($recipient, array|Collection|null $data = null)
+    {
+        parent::__construct(
+            data:      $data,
+            recipient: $recipient,
+            subject:   Str::headline(class_basename(__CLASS__)),
+        );
+    }
+}

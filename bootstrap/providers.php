@@ -6,7 +6,7 @@ use Fuse\Providers\TenancyServiceProvider;
 use Fuse\Providers\VoltServiceProvider;
 
 return [
-    AppServiceProvider::class,
+    FuseServiceProvider::class,
     PlatformServiceProvider::class,
     TenancyServiceProvider::class,
     VoltServiceProvider::class,

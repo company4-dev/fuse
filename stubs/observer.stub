@@ -1,0 +1,79 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Traits\BaseObserver;
+use {{ namespacedModel }};
+
+class {{ class }}
+{
+    use BaseObserver;
+
+    public function created({{ model }} ${{ model_snake }}): void
+    {
+        ${{ model_snake }}->log(
+            '_logs.{{ model-snake }}.created',
+            [
+                'item' => ${{ model_snake }}->name,
+                // 'target' => ${{ model_snake }}->target,
+            ]
+        );
+        $this->clear{{ class }}Caches(${{ model_snake }});
+    }
+    public function deleted({{ model }} ${{ model_snake }}): void
+    {
+        ${{ model_snake }}->log(
+            '_logs.{{ model-snake }}.deleted',
+            [
+                'item' => ${{ model_snake }}->name,
+                // 'target' => ${{ model_snake }}->target,
+            ]
+        );
+        $this->clear{{ class }}Caches(${{ model_snake }});
+    }
+    public function forceDeleted({{ model }} ${{ model_snake }}): void
+    {
+        ${{ model_snake }}->log(
+            '_logs.{{ model-snake }}.permanently-deleted',
+            [
+                'item' => ${{ model_snake }}->name,
+                // 'target' => ${{ model_snake }}->target,
+            ]
+        );
+        $this->clear{{ class }}Caches(${{ model_snake }});
+    }
+    public function restored({{ model }} ${{ model_snake }}): void
+    {
+        ${{ model_snake }}->log(
+            '_logs.{{ model-snake }}.restored',
+            [
+                'item' => ${{ model_snake }}->name,
+                // 'target' => ${{ model_snake }}->target,
+            ]
+        );
+        $this->clear{{ class }}Caches(${{ model_snake }});
+    }
+    public function updated({{ model }} ${{ model_snake }}): void
+    {
+        $changes = $this->changes(${{ model_snake }});
+        if ($changes) {
+            ${{ model_snake }}->log(
+                '_logs.{{ model-snake }}.updated',
+                [
+                    'changes' => '- '.implode('<br>- ', array_column($changes, 'text')),
+                    'item'    => ${{ model_snake }}->name,
+                    // 'target' => ${{ model_snake }}->target,
+                ]
+            );
+            $this->clear{{ class }}Caches(${{ model_snake }});
+        }
+    }
+
+    // Helpers
+    protected function clear{{ class }}Caches(${{ model_snake }}): void
+    {
+        $this->clearCaches(${{ model_snake }});
+    }
+}

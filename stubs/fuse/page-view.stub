@@ -1,0 +1,45 @@
+<?php
+
+use App\Helpers\Icons;
+use App\Helpers\Livewire;
+use Platforms\{{ Platform }}\Models\{{ Model }};
+
+use function Livewire\Volt\mount;
+use function Livewire\Volt\state;
+
+mount(function ($id) {
+    ${{ model }} = {{ Model }}::findOrRedirect($id, route('{{ platform }}::{{ feature }}.list'));
+
+    $this->details = [
+        [
+            'icon'  => Icon::icons(),
+            'label' => 'dictionary.name',
+            'value' => ${{ model }}->name,
+        ],
+    ];
+
+    Livewire::layout(
+        [
+            '{{ platform }}::{{ feature }}.list' => 'dictionary.{{ feature }}',
+            ${{ $model }}->name,
+        ],
+        Icons::icons(),
+    );
+});
+
+state([
+    'details' => null,
+]);
+
+?>
+
+<div>
+    <x-page-header
+        :activity="null"
+        :charts="null"
+        :$details
+        right-title="// Something Else"
+    >
+        Content for something else
+    </x-page-header>
+</div>

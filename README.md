@@ -15,11 +15,12 @@ For documentation on JellyBean platform, see [Documentation](---).
 
 # To Do:
 - [ ] Migrate files to Fuse
-  - [ ] Stubs - Copy as neccessery
+  - [ ] Stubs - Copy as necessary
   - [ ] Rename `namespace App\` to `namespace Fuse\`
   - [ ] Rename `use App\` to `use Fuse\`
+- [ ] Do something with Vite
 - [ ] Remove Module/Platform references
-- [ ] Libray Composer installs
+- [ ] Library Composer installs
 - [ ] Migrate to Livewire 4
   - [ ] app\Livewire
   - [ ] resources/livewire

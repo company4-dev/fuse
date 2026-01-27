@@ -1,0 +1,37 @@
+<?php
+
+use App\Helpers\Icons;
+use App\Helpers\Livewire;
+use Flux\Flux;
+use Platforms\{{ Platform }}\Models\{{ Model }};
+use Platforms\{{ Platform }}\View\Forms\{{ Namespace }};
+
+use function Livewire\Volt\form;
+use function Livewire\Volt\mount;
+
+form({{ Form }}::class);
+
+mount(function () {
+    Livewire::layout(
+        [
+            '{{ platform }}::{{ feature }}.list' => 'dictionary.{{ feature }}',
+            ['phrases.add', ['dictionary.{{ feature }}']],
+        ],
+        Icons::icons(),
+    );
+});
+
+$submit = fn () => $this->form->process($this, function ($validated) {
+    ${{ model }} = {{ Model }}::create($validated->toArray());
+
+    Flux::toast('Your changes have been saved.', variant: 'success');
+
+    return $this->redirect(route('{{ platform }}::{{ feature }}.view', ${{ model }}->id));
+});
+
+?>
+<div class="container">
+    <flux:card>
+        <x-form :$form />
+    </flux:card>
+</div>

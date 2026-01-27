@@ -1,0 +1,43 @@
+<?php
+
+namespace Platforms\{{ Platform }}\View\Tables;
+
+use App\Helpers\Dates;
+use App\Traits\BaseTable;
+use Platforms\{{ Platform }}\Models\{{ Model }};
+
+class {{ Table }}
+{
+    use BaseTable;
+
+    public const string MODEL = {{ Model }}::class;
+
+    private function actions($model): array
+    {
+        return [
+            // [
+            //     'route' => '{{ platform }}::view',
+            //     'type'  => 'view',
+            // ],
+        ];
+    }
+
+    private function columns(?int $id = null, ?array $dataset = null): array
+    {
+        return [
+            'dictionary.name' => [
+                'columns' => [
+                    'name',
+                ],
+            ],
+            'phrases.created-at' => [
+                'columns' => 'created_at',
+                'value'   => fn ($value) => Dates::datetime($value),
+            ],
+            'phrases.updated-at' => [
+                'columns' => 'updated_at',
+                'value'   => fn ($value) => Dates::datetime($value),
+            ],
+        ];
+    }
+}

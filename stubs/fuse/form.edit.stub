@@ -1,0 +1,44 @@
+<?php
+
+namespace Platforms\{{ Platform }}\View\Forms;
+
+use App\Traits\BaseLivewireForm;
+use Livewire\Form;
+
+class {{ Form }} extends Form
+{
+    use BaseLivewireForm;
+
+    public string $name = '';
+
+    public function actions(): array
+    {
+        return [
+            [
+                'component' => 'field',
+                'label'     => 'dictionary.save',
+                'name'      => 'save',
+                'type'      => 'submit',
+            ],
+        ];
+    }
+
+    public function fields(): array
+    {
+        return [
+            'dictionary.details' => [
+                [
+                    'label'    => 'dictionary.name',
+                    'name'     => 'name',
+                    'required' => true,
+                    'type'     => 'text',
+                ],
+            ],
+        ];
+    }
+
+    public function setModel(${{ model }}, object $component): void
+    {
+        $this->name  = ${{ model }}->name;
+    }
+}
