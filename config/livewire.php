@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'layout' => 'components.layouts.app',
+    'component_layout' => 'layouts::app',
 
     /*
     |---------------------------------------------------------------------------
@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'lazy_placeholder' => null,
+    'component_placeholder' => 'livewire.placeholder',
 
     /*
     |---------------------------------------------------------------------------
@@ -162,4 +162,15 @@ return [
     */
 
     'pagination_theme' => 'tailwind',
+
+    // V4
+    'component_locations' => [
+        resource_path('views/components'),
+        resource_path('views/livewire'),
+    ],
+    'csp_safe' => false,
+    'make_command' => [
+        'type' => 'sfc',  // Options: 'sfc', 'mfc', or 'class'
+        'emoji' => true,   // Whether to use ⚡ emoji prefix
+    ],
 ];

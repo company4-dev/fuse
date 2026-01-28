@@ -5,7 +5,6 @@ use Fuse\Http\Controllers\UserImpersonationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Livewire\Volt\Volt;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 
 foreach (config('tenancy.central_domains') as $domain) {
@@ -29,7 +28,7 @@ Route
 Route
     ::middleware(['auth', 'universal', InitializeTenancyByDomainOrSubdomain::class])
     ->group(function () {
-        Volt::route('app', 'dashboard')->name('dashboard');
+        Route::livewire('app', 'dashboard')->name('dashboard');
     });
 
 Route
@@ -48,12 +47,12 @@ Route
             'users',
         ];
 
-        Volt::route('app/profile', 'profile')->name('profile');
+        Route::livewire('app/profile', 'profile')->name('profile');
 
         foreach ($allowed_paths as $path) {
             $routes['app/'.$path] = $path;
 
-            Volt::route('app/'.$path, $path.'.list')->name($path);
+            Route::livewire('app/'.$path, $path.'.list')->name($path);
 
             foreach ($root_root->allFiles($livewire_path.'/'.$path) as $file) {
                 $view_file = Str::replace([substr($livewire_path, 1).'/', '.blade.php'], '', $file);
@@ -63,7 +62,7 @@ Route
 
                 $routes[$path.'/{id?}'] = $name;
 
-                Volt::route($path.'/{id?}', $name)->name($name);
+                Route::livewire($path.'/{id?}', $name)->name($name);
             }
         }
 
@@ -78,7 +77,7 @@ Route
 
                     $routes['app/'.$slug.'/'.$folder] = $slug.'::'.$folder.'.index';
 
-                    Volt::route('app/'.$slug.'/'.$folder, $slug.'::'.$folder.'.list')->name($slug.'::'.$folder);
+                    Route::livewire('app/'.$slug.'/'.$folder, $slug.'::'.$folder.'.list')->name($slug.'::'.$folder);
                 }
 
                 $path = 'app/'.$slug.'/'.$view_file;
@@ -86,7 +85,7 @@ Route
 
                 $routes[$path.'/{id?}'] = $name;
 
-                Volt::route($path.'/{id?}', $name)->name($name);
+                Route::livewire($path.'/{id?}', $name)->name($name);
             }
         }
 

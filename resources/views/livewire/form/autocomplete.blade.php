@@ -1,7 +1,7 @@
 <?php
 
 use App\Traits\BaseInputComponent;
-use Livewire\Volt\Component;
+use Livewire\Component;
 
 // We have to use class-style for forms to use the traits
 new class extends Component

@@ -4,7 +4,7 @@ use App\Helpers\Platforms;
 use App\View\Forms\Table;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Locked;
-use Livewire\Volt\Component;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 // We have to use class-style the global updating for the filters

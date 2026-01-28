@@ -1,9 +1,9 @@
 <?php
 
-use Livewire\Volt\Volt;
+use Livewire\Livewire;
 
 it('can render', function () {
-    $component = Volt::test('search');
+    $component = Livewire::test('search');
 
     $component->assertSee('');
 });
