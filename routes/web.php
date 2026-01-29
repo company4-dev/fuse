@@ -66,29 +66,6 @@ Route
             }
         }
 
-        foreach ($platforms as $slug => $platform) {
-            $platform_livewire_path = $platform->getStudlyName().$livewire_path;
-
-            foreach ($platform_root->allFiles($platform_livewire_path) as $file) {
-                $view_file = Str::replace([$platform_livewire_path.'/', '.blade.php'], '', $file);
-
-                if (!array_key_exists($view_file, $routes)) {
-                    $folder = explode('/', $view_file)[0];
-
-                    $routes['app/'.$slug.'/'.$folder] = $slug.'::'.$folder.'.index';
-
-                    Route::livewire('app/'.$slug.'/'.$folder, $slug.'::'.$folder.'.list')->name($slug.'::'.$folder);
-                }
-
-                $path = 'app/'.$slug.'/'.$view_file;
-                $name = $slug.'::'.Str::replace('/', '.', $view_file);
-
-                $routes[$path.'/{id?}'] = $name;
-
-                Route::livewire($path.'/{id?}', $name)->name($name);
-            }
-        }
-
         // dump($routes);
     });
 
