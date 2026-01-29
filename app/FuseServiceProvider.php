@@ -6,6 +6,7 @@ use Fuse\Helpers\Cache as CacheHelper;
 use Fuse\Helpers\Icons as IconsHelper;
 use Fuse\Hooks\Menu;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Number;
@@ -28,9 +29,6 @@ class FuseServiceProvider extends ServiceProvider
 
         // Database - Migrations
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-
-        // Routes
-        $this->loadFuseRoutes();
 
         // Translations
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'fuse');
@@ -89,8 +87,12 @@ class FuseServiceProvider extends ServiceProvider
 
     private function loadFuseRoutes()
     {
-        foreach (glob(__DIR__ . '/../routes' . '/*.php') as $file) {
-            $this->loadRoutesFrom($file);
-        }
+        $this->app->booted(function() {
+            if (Route::hasMacro('livewire')) {
+                foreach (glob(__DIR__ . '/../routes' . '/*.php') as $file) {
+                    $this->loadRoutesFrom($file);
+                }
+            }
+        });
     }
 }
