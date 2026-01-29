@@ -17,6 +17,7 @@ use Stancl\Tenancy\TenantDatabaseManagers\PostgreSQLDatabaseManager;
 use Stancl\Tenancy\TenantDatabaseManagers\SQLiteDatabaseManager;
 
 return [
+    'enabled'      => false,
     'id_generator' => null,
     'tenant_model' => Tenant::class,
 
@@ -30,7 +31,7 @@ return [
     'central_domains' => array_filter([
         '127.0.0.1',
         'localhost',
-        env('CENTRAL_DOMAIN', 'jellybean.localhost'),
+        env('CENTRAL_DOMAIN', 'localhost:8000'),
     ]),
 
     /**

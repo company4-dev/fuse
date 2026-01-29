@@ -1,17 +1,22 @@
 <?php
 
-use Fuse\Helpers\Platforms;
+use Fuse\Helpers\Tenancy;
 use Fuse\Http\Controllers\UserImpersonationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 
-foreach (config('tenancy.central_domains') as $domain) {
-    Route::domain($domain)->group(function () {
-        Route
-            ::get('/', fn () => view('home'));
-    });
+$tenancy_enabled    = Tenancy::enabled();
+$tenancy_middleware = $tenancy_enabled ? ['universal', InitializeTenancyByDomainOrSubdomain::class] : [];
+
+if ($tenancy_enabled) {
+    foreach (config('tenancy.central_domains') as $domain) {
+        Route::domain($domain)->group(function () {
+            Route
+                ::get('/', fn () => view('home'));
+        });
+    }
 }
 
 // Global Routes

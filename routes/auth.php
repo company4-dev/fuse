@@ -1,11 +1,14 @@
 <?php
 
+use Fuse\Helpers\Tenancy;
 use Fuse\Http\Controllers\Auth\VerifyEmailController;
 use Fuse\Livewire\Actions\Logout;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 
-Route::middleware(['guest', 'universal', InitializeTenancyByDomainOrSubdomain::class])->group(function () {
+$tenancy_middleware = Tenancy::enabled() ? ['universal', InitializeTenancyByDomainOrSubdomain::class] : [];
+
+Route::middleware(array_merge(['guest'], $tenancy_middleware))->group(function () {
     Route::livewire('login', 'auth.login')
         ->name('login');
 
@@ -19,7 +22,7 @@ Route::middleware(['guest', 'universal', InitializeTenancyByDomainOrSubdomain::c
         ->name('password.reset');
 });
 
-Route::middleware(['auth', 'universal', InitializeTenancyByDomainOrSubdomain::class])->group(function () {
+Route::middleware(array_merge(['auth'], $tenancy_middleware))->group(function () {
     Route::livewire('verify-email', 'auth.verify-email')
         ->name('verification.notice');
 
@@ -31,7 +34,7 @@ Route::middleware(['auth', 'universal', InitializeTenancyByDomainOrSubdomain::cl
         ->name('password.confirm');
 });
 
-Route::middleware(['universal', InitializeTenancyByDomainOrSubdomain::class])->group(function () {
+Route::middleware(array_merge([], $tenancy_middleware))->group(function () {
     Route::post('logout', Logout::class)
         ->name('logout');
 });

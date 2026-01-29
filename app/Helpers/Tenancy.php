@@ -5,10 +5,24 @@ namespace Fuse\Helpers;
 use Fuse\Models\Tenant;
 use Exception;
 
-class Tenants
+class Tenancy
 {
+    public static function validate_enabled(): void
+    {
+        if (!self::enabled()) {
+            throw new Exception(___('errors.exceptions.tenancy.disabled'));
+        }
+    }
+
+    public static function enabled(): bool
+    {
+        return config('tenancy.enabled');
+    }
+
     public static function end(): void
     {
+        self::validate_enabled();
+
         tenancy()->end();
     }
 
