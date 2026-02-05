@@ -12,7 +12,7 @@
 		"prefix": ["log", "console.log"],
 		"scope": "blade,php",
 		"body": [
-			"\\App\\Helpers\\Log::${2|debug,info,notice,warning,error,critical,alert,emergency|}($1);"
+			"\\Fuse\\Helpers\\Log::${2|debug,info,notice,warning,error,critical,alert,emergency|}($1);"
 		],
 		"description": "Log something"
 	},
