@@ -58,5 +58,5 @@
             "Fuse\\Composer\\Hooks::postUpdate"
         ]
     },
-    "version": "0.12"
+    "version": "0.13"
 }
