@@ -6,6 +6,7 @@ use Fuse\Helpers\Cache as CacheHelper;
 use Fuse\Helpers\Icons as IconsHelper;
 use Fuse\Hooks\Menu;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
@@ -35,6 +36,8 @@ class FuseServiceProvider extends ServiceProvider
 
         // Views
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'fuse');
+
+        $this->loadFuseRoutes();
 
         View::composer(
             [
@@ -80,6 +83,8 @@ class FuseServiceProvider extends ServiceProvider
 
     protected function loadFuseConfig()
     {
+        once(fn () => \Fuse\Helpers\Log::critical('Check for for: https://github.com/livewire/livewire/pull/9903'));
+
         foreach (glob(__DIR__ . '/../config/*.php') as $file) {
             $this->mergeConfigFrom($file, basename($file, '.php'));
         }
