@@ -40,9 +40,7 @@ Route
     ::middleware(['auth', 'verified', 'universal', InitializeTenancyByDomainOrSubdomain::class])
     ->group(function () {
         $livewire_path = '/resources/views/livewire';
-        $platforms     = Platforms::active()->get();
-        $platform_root = Storage::disk('platforms');
-        $root_root     = Storage::disk('root');
+        $fuse_root     = Storage::disk('fuse');
         $routes        = [];
 
         // Base Routes
@@ -59,7 +57,7 @@ Route
 
             Route::livewire('app/'.$path, $path.'.list')->name($path);
 
-            foreach ($root_root->allFiles($livewire_path.'/'.$path) as $file) {
+            foreach ($fuse_root->allFiles($livewire_path.'/'.$path) as $file) {
                 $view_file = Str::replace([substr($livewire_path, 1).'/', '.blade.php'], '', $file);
 
                 $path = 'app/'.$view_file;

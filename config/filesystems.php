@@ -36,9 +36,9 @@ return [
             'report' => false,
         ],
 
-        'platforms' => [
+        'fuse' => [
             'driver' => 'local',
-            'root'   => base_path('/Platforms'),
+            'root'   => base_path('/vendor/company4-dev/fuse'),
             'serve'  => true,
             'throw'  => false,
             'report' => false,
@@ -51,14 +51,6 @@ return [
             'visibility' => 'public',
             'throw'      => false,
             'report'     => false,
-        ],
-
-        'root' => [
-            'driver' => 'local',
-            'root'   => base_path('/'),
-            'serve'  => true,
-            'throw'  => false,
-            'report' => false,
         ],
 
         's3' => [

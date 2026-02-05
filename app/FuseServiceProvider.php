@@ -85,9 +85,23 @@ class FuseServiceProvider extends ServiceProvider
     {
         once(fn () => \Fuse\Helpers\Log::critical('Check for for: https://github.com/livewire/livewire/pull/9903'));
 
+        \Fuse\Helpers\Log::emergency('This is not working. We need to load the fuse config, then recursively merge in the base laravel config files.');
+
         foreach (glob(__DIR__ . '/../config/*.php') as $file) {
-            $this->mergeConfigFrom($file, basename($file, '.php'));
+            $basename   = basename($file, '.php');
+            $fuseConfig = include $file;
+
+            // Get the main app config if it exists
+            $appConfig = config($basename, []);
+
+            // Merge: Fuse config first, then override with app config
+            $mergedConfig = array_merge($fuseConfig, $appConfig);
+
+            // Set the merged config
+            config([$basename => $mergedConfig]);
         }
+
+        dd(config());
     }
 
     private function loadFuseRoutes()
