@@ -40,7 +40,8 @@ Route
     ::middleware(['auth', 'verified', 'universal', InitializeTenancyByDomainOrSubdomain::class])
     ->group(function () {
         $livewire_path = '/resources/views/livewire';
-        $fuse_root     = Storage::disk('fuse');
+        // $fuse_root     = Storage::disk('fuse');
+        $fuse_root     = Storage::disk('local');
         $routes        = [];
 
         // Base Routes

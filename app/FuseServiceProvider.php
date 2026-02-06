@@ -6,7 +6,7 @@ use Fuse\Helpers\Cache as CacheHelper;
 use Fuse\Helpers\Icons as IconsHelper;
 use Fuse\Hooks\Menu;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
@@ -83,24 +83,26 @@ class FuseServiceProvider extends ServiceProvider
 
     protected function loadFuseConfig()
     {
+        $config = [];
         once(fn () => \Fuse\Helpers\Log::critical('Check for for: https://github.com/livewire/livewire/pull/9903'));
 
         \Fuse\Helpers\Log::emergency('This is not working. We need to load the fuse config, then recursively merge in the base laravel config files.');
 
+        // Fuse configs
+        dump(__DIR__ . '/../config/*.php');
         foreach (glob(__DIR__ . '/../config/*.php') as $file) {
+            $basename    = basename($file, '.php');
+            $fuse_config = include $file;
+
+            $config[$basename] = $fuse_config;
+        }
+
+        // Project Configs
+        foreach (glob(base_path('config').'/*.php') as $file) {
             $basename   = basename($file, '.php');
-            $fuseConfig = include $file;
+            $app_config = include $file;
 
-            dd($fuseConfig);
-
-            // Get the main app config if it exists
-            $appConfig = config($basename, []);
-
-            // Merge: Fuse config first, then override with app config
-            $mergedConfig = array_merge($fuseConfig, $appConfig);
-
-            // Set the merged config
-            config([$basename => $mergedConfig]);
+            dd(config('app'), $config['app'], array_replace_recursive($app_config, $config[$basename]));
         }
 
         // dd(config());
