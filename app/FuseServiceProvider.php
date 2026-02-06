@@ -86,10 +86,7 @@ class FuseServiceProvider extends ServiceProvider
         $config = [];
         once(fn () => \Fuse\Helpers\Log::critical('Check for for: https://github.com/livewire/livewire/pull/9903'));
 
-        \Fuse\Helpers\Log::emergency('This is not working. We need to load the fuse config, then recursively merge in the base laravel config files.');
-
         // Fuse configs
-        dump(__DIR__ . '/../config/*.php');
         foreach (glob(__DIR__ . '/../config/*.php') as $file) {
             $basename    = basename($file, '.php');
             $fuse_config = include $file;
@@ -102,20 +99,22 @@ class FuseServiceProvider extends ServiceProvider
             $basename   = basename($file, '.php');
             $app_config = include $file;
 
-            dd(config('app'), $config['app'], array_replace_recursive($app_config, $config[$basename]));
+            $config[$basename] = array_replace_recursive($config[$basename] ?? [], $app_config);
         }
 
-        // dd(config());
+        foreach ($config as $key => $value) {
+            Config::set($key, $value);
+        }
     }
 
     private function loadFuseRoutes()
     {
-        $this->app->booted(function() {
-            if (Route::hasMacro('livewire')) {
+        // $this->app->booted(function() {
+        //     if (Route::hasMacro('livewire')) {
                 foreach (glob(__DIR__ . '/../routes' . '/*.php') as $file) {
                     $this->loadRoutesFrom($file);
                 }
-            }
-        });
+        //     }
+        // });
     }
 }
