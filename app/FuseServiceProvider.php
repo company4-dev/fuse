@@ -101,7 +101,7 @@ class FuseServiceProvider extends ServiceProvider
             config([$basename => $mergedConfig]);
         }
 
-        dd(config());
+        // dd(config());
     }
 
     private function loadFuseRoutes()
