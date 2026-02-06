@@ -91,6 +91,8 @@ class FuseServiceProvider extends ServiceProvider
             $basename   = basename($file, '.php');
             $fuseConfig = include $file;
 
+            dd($fuseConfig);
+
             // Get the main app config if it exists
             $appConfig = config($basename, []);
 
