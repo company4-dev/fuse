@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Models;
+namespace App\Models;
 
-use Fuse\Observers\TenantObserver;
-use Fuse\Traits\BaseModel;
+use App\Observers\TenantObserver;
+use App\Traits\BaseModel;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;

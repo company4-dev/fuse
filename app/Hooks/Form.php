@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Hooks;
+namespace App\Hooks;
 
-use Fuse\Enums\PlatformHook;
-use Fuse\Traits\BaseHook;
+use App\Enums\PlatformHook;
+use App\Traits\BaseHook;
 
 class Form
 {

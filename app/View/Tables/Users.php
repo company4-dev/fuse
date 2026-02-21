@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuse\View\Tables;
+namespace App\View\Tables;
 
-use Fuse\Enums\UserStatus;
-use Fuse\Helpers\Dates;
-use Fuse\Models\Role;
-use Fuse\Models\User;
-use Fuse\Traits\BaseTable;
+use App\Enums\UserStatus;
+use App\Helpers\Dates;
+use App\Models\Role;
+use App\Models\User;
+use App\Traits\BaseTable;
 
 class Users
 {

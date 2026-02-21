@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\Composer;
+namespace App\Composer;
 
 use Composer\Script\Event;
 
@@ -10,7 +10,7 @@ class Hooks
     {
         // Run anything you want here
         // e.g. generate config, cache modules, publish assets
-        \Fuse\Helpers\Log::info([
+        \App\Helpers\Log::info([
             'Remove all config files.'
         ]);
 

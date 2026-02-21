@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\View\Components;
+namespace App\View\Components;
 
 use Closure;
-use Fuse\Enums\Components\Callout\Variant as CalloutVariant;
+use App\Enums\Components\Callout\Variant as CalloutVariant;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 

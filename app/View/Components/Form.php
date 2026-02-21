@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuse\View\Components;
+namespace App\View\Components;
 
 use Closure;
 use Exception;
-use Fuse\Helpers\Conversions;
-use Fuse\Helpers\Formatters;
-use Fuse\Hooks\Form as FormHook;
+use App\Helpers\Conversions;
+use App\Helpers\Formatters;
+use App\Hooks\Form as FormHook;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Observers;
+namespace App\Observers;
 
-use Fuse\Models\Tenant;
-use Fuse\Traits\BaseObserver;
+use App\Models\Tenant;
+use App\Traits\BaseObserver;
 
 class TenantObserver
 {

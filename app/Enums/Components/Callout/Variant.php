@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\Enums\Components\Callout;
+namespace App\Enums\Components\Callout;
 
-use Fuse\Traits\BaseEnum;
+use App\Traits\BaseEnum;
 
 enum Variant
 {

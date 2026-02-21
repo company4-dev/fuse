@@ -1,10 +1,10 @@
 <?php
 
-namespace Fuse\View\Tables;
+namespace App\View\Tables;
 
-use Fuse\Helpers\Dates;
-use Fuse\Models\Role;
-use Fuse\Traits\BaseTable;
+use App\Helpers\Dates;
+use App\Models\Role;
+use App\Traits\BaseTable;
 
 class Roles
 {

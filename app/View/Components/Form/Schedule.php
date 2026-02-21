@@ -1,10 +1,10 @@
 <?php
 
-namespace Fuse\View\Components\Form;
+namespace App\View\Components\Form;
 
 use Closure;
-use Fuse\Helpers\Schedule as ScheduleHelper;
-use Fuse\Traits\BaseInputComponent;
+use App\Helpers\Schedule as ScheduleHelper;
+use App\Traits\BaseInputComponent;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use InvalidArgumentException;

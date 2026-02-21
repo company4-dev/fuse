@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Stancl\Tenancy\Features\UserImpersonation;
 

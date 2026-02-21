@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\View\Forms\Management;
+namespace App\View\Forms\Management;
 
-use Fuse\Traits\BaseLivewireForm;
+use App\Traits\BaseLivewireForm;
 use Livewire\Form;
 
 class Platform extends Form

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Tenants;
 
-use Fuse\Hooks\Seeder as HooksSeeder;
+use App\Hooks\Seeder as HooksSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

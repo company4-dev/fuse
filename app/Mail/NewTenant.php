@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fuse\Mail;
+namespace App\Mail;
 
-use Fuse\Helpers\Collection;
-use Fuse\Helpers\Log;
+use App\Helpers\Collection;
+use App\Helpers\Log;
 
 class NewTenant extends BaseMail
 {

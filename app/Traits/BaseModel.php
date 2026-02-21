@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuse\Traits;
+namespace App\Traits;
 
 use Exception;
-use Fuse\Helpers\Activity;
-use Fuse\Helpers\Cache;
-use Fuse\Helpers\Collection;
-use Fuse\Helpers\Dates;
+use App\Helpers\Activity;
+use App\Helpers\Cache;
+use App\Helpers\Collection;
+use App\Helpers\Dates;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;

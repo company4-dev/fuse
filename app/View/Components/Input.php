@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\View\Components;
+namespace App\View\Components;
 
 use Closure;
 use Exception;

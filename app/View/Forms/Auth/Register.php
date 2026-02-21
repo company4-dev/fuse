@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\View\Forms\Auth;
+namespace App\View\Forms\Auth;
 
-use Fuse\Models\User;
-use Fuse\Traits\BaseLivewireForm;
+use App\Models\User;
+use App\Traits\BaseLivewireForm;
 use Livewire\Form;
 
 class Register extends Form

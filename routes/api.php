@@ -1,7 +1,7 @@
 <?php
 
-use Fuse\Http\Controllers\API\PlatformsController;
-use Fuse\Http\Middleware\ValidateApiKey;
+use App\Http\Controllers\API\PlatformsController;
+use App\Http\Middleware\ValidateApiKey;
 use Illuminate\Support\Facades\Route;
 
 // Route::post('/platform/{platform}/update', function (Request $request, string $platform) {

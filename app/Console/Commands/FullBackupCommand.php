@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Console\Commands;
+namespace App\Console\Commands;
 
 use Company4\Incrementor\Incrementor;
-use Fuse\Traits\BaseCommand;
+use App\Traits\BaseCommand;
 use Illuminate\Console\Command;
 
 class FullBackupCommand extends Command

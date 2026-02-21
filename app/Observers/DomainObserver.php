@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Observers;
+namespace App\Observers;
 
-use Fuse\Models\Domain;
-use Fuse\Traits\BaseObserver;
+use App\Models\Domain;
+use App\Traits\BaseObserver;
 
 class DomainObserver
 {

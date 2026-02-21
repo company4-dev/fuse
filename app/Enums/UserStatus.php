@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\Enums;
+namespace App\Enums;
 
-use Fuse\Traits\BaseEnum;
+use App\Traits\BaseEnum;
 
 enum UserStatus: int
 {

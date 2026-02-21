@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuse\Hooks;
+namespace App\Hooks;
 
-use Fuse\Enums\Permissions as CorePermissions;
-use Fuse\Enums\PlatformHook;
-use Fuse\Enums\TenantDisplay;
-use Fuse\Helpers\Tenants;
-use Fuse\Traits\BaseHook;
+use App\Enums\Permissions as CorePermissions;
+use App\Enums\PlatformHook;
+use App\Enums\TenantDisplay;
+use App\Helpers\Tenants;
+use App\Traits\BaseHook;
 
 class Permissions
 {

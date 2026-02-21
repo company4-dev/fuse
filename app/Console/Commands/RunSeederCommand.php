@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\Console\Commands;
+namespace App\Console\Commands;
 
-use Fuse\Traits\BaseCommand;
+use App\Traits\BaseCommand;
 use Illuminate\Console\Command;
 
 class RunSeederCommand extends Command

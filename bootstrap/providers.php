@@ -1,9 +1,11 @@
 <?php
 
-use Fuse\Providers\PlatformServiceProvider;
-use Fuse\Providers\TenancyServiceProvider;
+use App\Providers\FuseServiceProvider;
+use App\Providers\TenancyServiceProvider;
 
 return [
-    PlatformServiceProvider::class,
+    App\Providers\AppServiceProvider::class,
+    App\Providers\FortifyServiceProvider::class,
+    FuseServiceProvider::class,
     TenancyServiceProvider::class,
 ];

@@ -1,8 +1,8 @@
 <?php
 
-use Fuse\Helpers\Tenancy;
-use Fuse\Http\Controllers\Auth\VerifyEmailController;
-use Fuse\Livewire\Actions\Logout;
+use App\Helpers\Tenancy;
+use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Livewire\Actions\Logout;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 

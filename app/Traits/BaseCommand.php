@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Traits;
+namespace App\Traits;
 
-use Fuse\Helpers\Platforms;
-use Fuse\Helpers\Storage;
+use App\Helpers\Platforms;
+use App\Helpers\Storage;
 use Illuminate\Support\Str;
 
 use function Laravel\Prompts\select;

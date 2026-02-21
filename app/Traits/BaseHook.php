@@ -1,10 +1,10 @@
 <?php
 
-namespace Fuse\Traits;
+namespace App\Traits;
 
-use Fuse\Enums\PlatformHook;
-use Fuse\Helpers\Formatters;
-use Fuse\Helpers\Platforms;
+use App\Enums\PlatformHook;
+use App\Helpers\Formatters;
+use App\Helpers\Platforms;
 use InvalidArgumentException;
 use ReflectionClass;
 

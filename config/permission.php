@@ -1,7 +1,7 @@
 <?php
 
-use Fuse\Models\Permission;
-use Fuse\Models\Role;
+use App\Models\Permission;
+use App\Models\Role;
 
 return [
     'models' => [

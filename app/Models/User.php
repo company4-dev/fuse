@@ -1,13 +1,13 @@
 <?php
 
-namespace Fuse\Models;
+namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Database\Factories\UserFactory;
-use Fuse\Enums\UserStatus;
-use Fuse\Observers\UserObserver;
-use Fuse\Traits\BaseModel;
+use App\Enums\UserStatus;
+use App\Observers\UserObserver;
+use App\Traits\BaseModel;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;

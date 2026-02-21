@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Observers;
+namespace App\Observers;
 
-use Fuse\Models\User;
-use Fuse\Traits\BaseObserver;
+use App\Models\User;
+use App\Traits\BaseObserver;
 
 class UserObserver
 {

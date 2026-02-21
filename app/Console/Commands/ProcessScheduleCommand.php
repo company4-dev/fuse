@@ -1,13 +1,13 @@
 <?php
 
-namespace Fuse\Console\Commands;
+namespace App\Console\Commands;
 
-use Fuse\Helpers\Tenants;
-use Fuse\Jobs\GenerateScheduleDates;
-use Fuse\Jobs\ProcessScheduleDates;
-use Fuse\Models\Schedule;
-use Fuse\Models\ScheduleDate;
-use Fuse\Traits\BaseCommand;
+use App\Helpers\Tenants;
+use App\Jobs\GenerateScheduleDates;
+use App\Jobs\ProcessScheduleDates;
+use App\Models\Schedule;
+use App\Models\ScheduleDate;
+use App\Traits\BaseCommand;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 

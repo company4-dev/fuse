@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuse\Jobs;
+namespace App\Jobs;
 
-use Fuse\Helpers\Log;
-use Fuse\Helpers\Platforms;
-use Fuse\Models\ScheduleDate;
-use Fuse\Models\Tenant;
+use App\Helpers\Log;
+use App\Helpers\Platforms;
+use App\Models\ScheduleDate;
+use App\Models\Tenant;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Throwable;

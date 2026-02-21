@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\View\Forms\Users;
+namespace App\View\Forms\Users;
 
-use Fuse\Models\Role;
-use Fuse\Traits\BaseLivewireForm;
+use App\Models\Role;
+use App\Traits\BaseLivewireForm;
 use Livewire\Form;
 
 class User extends Form

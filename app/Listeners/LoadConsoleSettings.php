@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\Listeners;
+namespace App\Listeners;
 
-use Fuse\Helpers\Settings;
+use App\Helpers\Settings;
 use Illuminate\Console\Events\CommandStarting;
 
 class LoadConsoleSettings

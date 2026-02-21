@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuse\Observers;
+namespace App\Observers;
 
-use Fuse\Helpers\Cache;
-use Fuse\Models\File;
-use Fuse\Models\User;
-use Fuse\Traits\BaseObserver;
+use App\Helpers\Cache;
+use App\Models\File;
+use App\Models\User;
+use App\Traits\BaseObserver;
 
 class FileObserver
 {

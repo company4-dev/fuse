@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\Traits;
+namespace App\Traits;
 
 trait BasePlatformHook
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Fuse\Models;
+namespace App\Models;
 
-use Fuse\Jobs\GenerateScheduleDates;
-use Fuse\Observers\ScheduleObserver;
-use Fuse\Traits\BaseModel;
+use App\Jobs\GenerateScheduleDates;
+use App\Observers\ScheduleObserver;
+use App\Traits\BaseModel;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;

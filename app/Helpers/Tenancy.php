@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\Helpers;
+namespace App\Helpers;
 
-use Fuse\Models\Tenant;
+use App\Models\Tenant;
 use Exception;
 
 class Tenancy

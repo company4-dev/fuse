@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Console\Commands;
+namespace App\Console\Commands;
 
-use Fuse\Helpers\Log;
-use Fuse\Traits\BaseCommand;
+use App\Helpers\Log;
+use App\Traits\BaseCommand;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;

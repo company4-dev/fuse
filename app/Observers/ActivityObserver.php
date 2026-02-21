@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuse\Observers;
+namespace App\Observers;
 
-use Fuse\Helpers\Cache;
-use Fuse\Models\Activity;
-use Fuse\Models\User;
-use Fuse\Traits\BaseObserver;
+use App\Helpers\Cache;
+use App\Models\Activity;
+use App\Models\User;
+use App\Traits\BaseObserver;
 
 class ActivityObserver
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Fuse\Mail;
+namespace App\Mail;
 
-use Fuse\Helpers\Collection;
-use Fuse\Helpers\Log;
-use Fuse\Models\User;
+use App\Helpers\Collection;
+use App\Helpers\Log;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;

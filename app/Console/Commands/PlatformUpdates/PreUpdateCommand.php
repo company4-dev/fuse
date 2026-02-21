@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Console\Commands\PlatformUpdates;
+namespace App\Console\Commands\PlatformUpdates;
 
-use Fuse\Helpers\Platforms;
-use Fuse\Traits\BaseCommand;
+use App\Helpers\Platforms;
+use App\Traits\BaseCommand;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;

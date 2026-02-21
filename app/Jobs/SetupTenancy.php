@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\Jobs;
+namespace App\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\File;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Observers;
+namespace App\Observers;
 
-use Fuse\Models\ScheduleDate;
-use Fuse\Traits\BaseObserver;
+use App\Models\ScheduleDate;
+use App\Traits\BaseObserver;
 
 class ScheduleDateObserver
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\View\Forms\Tenants;
+namespace App\View\Forms\Tenants;
 
-use Fuse\Traits\BaseLivewireForm;
+use App\Traits\BaseLivewireForm;
 use Livewire\Form;
 
 class Add extends Form

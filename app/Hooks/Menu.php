@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuse\Hooks;
+namespace App\Hooks;
 
-use Fuse\Enums\PlatformHook;
-use Fuse\Enums\TenantDisplay;
-use Fuse\Helpers\Icons;
-use Fuse\Helpers\Tenants;
-use Fuse\Traits\BaseHook;
+use App\Enums\PlatformHook;
+use App\Enums\TenantDisplay;
+use App\Helpers\Icons;
+use App\Helpers\Tenants;
+use App\Traits\BaseHook;
 use Exception;
 
 class Menu

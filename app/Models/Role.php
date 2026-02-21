@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Models;
+namespace App\Models;
 
-use Fuse\Observers\RoleObserver;
-use Fuse\Traits\BaseModel;
+use App\Observers\RoleObserver;
+use App\Traits\BaseModel;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;

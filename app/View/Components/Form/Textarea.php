@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\View\Components\Form;
+namespace App\View\Components\Form;
 
 use Closure;
-use Fuse\Traits\BaseInputComponent;
+use App\Traits\BaseInputComponent;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 

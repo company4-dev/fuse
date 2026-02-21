@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use Fuse\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuse\View\Tables;
+namespace App\View\Tables;
 
-use Fuse\Helpers\Dates;
-use Fuse\Models\Activity;
-use Fuse\Models\User;
-use Fuse\Traits\BaseTable;
+use App\Helpers\Dates;
+use App\Models\Activity;
+use App\Models\User;
+use App\Traits\BaseTable;
 use Illuminate\Support\Facades\DB;
 
 class Logs

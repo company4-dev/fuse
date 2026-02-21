@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Observers;
+namespace App\Observers;
 
-use Fuse\Models\Setting;
-use Fuse\Traits\BaseObserver;
+use App\Models\Setting;
+use App\Traits\BaseObserver;
 
 class SettingObserver
 {

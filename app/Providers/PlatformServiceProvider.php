@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\Providers;
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Override;

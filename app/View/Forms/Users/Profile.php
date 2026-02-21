@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\View\Forms\Users;
+namespace App\View\Forms\Users;
 
-use Fuse\Traits\BaseLivewireForm;
+use App\Traits\BaseLivewireForm;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Form;
 

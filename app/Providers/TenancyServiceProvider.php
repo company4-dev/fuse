@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fuse\Providers;
+namespace App\Providers;
 
-use Fuse\Jobs\SetupTenancy;
+use App\Jobs\SetupTenancy;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;

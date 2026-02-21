@@ -4,7 +4,7 @@
 "extra": {
     "laravel": {
         "providers": [
-            "Fuse\\FuseServiceProvider"
+            "App\\FuseServiceProvider"
         ]
     }
 }
@@ -16,8 +16,8 @@ For documentation on JellyBean platform, see [Documentation](---).
 # To Do:
 - [ ] Migrate files to Fuse
   - [ ] Stubs - Copy as necessary
-  - [ ] Rename `namespace App\` to `namespace Fuse\`
-  - [ ] Rename `use App\` to `use Fuse\`
+  - [ ] Rename `namespace App\` to `namespace App\`
+  - [ ] Rename `use App\` to `use App\`
 - [ ] Do something with Vite
 - [ ] Remove Module/Platform references
 - [ ] Library Composer installs

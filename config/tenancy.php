@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Fuse\Models\Tenant;
+use App\Models\Tenant;
 use Database\Seeders\Tenants\DatabaseSeeder;
 use Stancl\Tenancy\Bootstrappers\CacheTenancyBootstrapper;
 use Stancl\Tenancy\Bootstrappers\DatabaseTenancyBootstrapper;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Fuse\View\Tables\Tenants;
+namespace App\View\Tables\Tenants;
 
-use Fuse\Helpers\Dates;
-use Fuse\Models\Tenant;
-use Fuse\Traits\BaseTable;
+use App\Helpers\Dates;
+use App\Models\Tenant;
+use App\Traits\BaseTable;
 
 class Tenants
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Enums;
+namespace App\Enums;
 
-use Fuse\Traits\BaseEnum;
-use Fuse\Traits\BasePermissionsEnum;
+use App\Traits\BaseEnum;
+use App\Traits\BasePermissionsEnum;
 
 enum Permissions
 {

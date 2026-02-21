@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Observers;
+namespace App\Observers;
 
-use Fuse\Models\RolePermission;
-use Fuse\Traits\BaseObserver;
+use App\Models\RolePermission;
+use App\Traits\BaseObserver;
 
 class RolePermissionObserver
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\View\Tables;
+namespace App\View\Tables;
 
-use Fuse\Models\Permission;
-use Fuse\Traits\BaseTable;
+use App\Models\Permission;
+use App\Traits\BaseTable;
 
 class Permissions
 {

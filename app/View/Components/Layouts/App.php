@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\View\Components\Layouts;
+namespace App\View\Components\Layouts;
 
 use Illuminate\View\Component;
 use Illuminate\View\View;

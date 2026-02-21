@@ -1,28 +1,19 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "company4-dev/fuse",
+    "type": "project",
     "description": "Opinionated Laravel Efficiency",
-    "type": "library",
-    "autoload": {
-        "psr-4": {
-            "Fuse\\": "app/"
-        },
-        "files": [
-            "bootstrap/functions.php"
-        ]
-    },
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "authors": [
         {
             "name": "Jas-n",
             "homepage": "https://github.com/Jas-n"
         }
     ],
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Fuse\\FuseServiceProvider"
-            ]
-        }
-    },
+    "license": "MIT",
     "require": {
         "php": "^8.4",
         "ext-intl": "*",
@@ -34,15 +25,86 @@
         "kodeine/laravel-meta": "^2.2",
         "laravel/fortify": "^1.30",
         "laravel/framework": "^12.0",
-        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
-        "livewire/livewire": "^4.0",
         "livewire/flux": "^2.9.0",
         "livewire/flux-pro": "^2.3",
+        "livewire/livewire": "^4.0",
         "sentry/sentry-laravel": "^4.20",
         "spatie/laravel-activitylog": "^4.10",
         "spatie/laravel-permission": "^6.10",
         "stancl/tenancy": "^3.9"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/pail": "^1.2.2",
+        "laravel/pint": "^1.24",
+        "laravel/sail": "^1.41",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "pestphp/pest": "^4.4",
+        "pestphp/pest-plugin-laravel": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        },
+        "files": [
+            "bootstrap/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "setup": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force",
+            "npm install",
+            "npm run build"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\" --names='server,queue,vite'"
+        ],
+        "lint": [
+            "pint --parallel"
+        ],
+        "test:lint": [
+            "pint --parallel --test"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@test:lint",
+            "@php artisan test"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-install-cmd": [
+            "App\\Composer\\Hooks::postInstall"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "App\\Composer\\Hooks::postUpdate"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ]
     },
     "repositories": {
         "flux-pro": {
@@ -50,13 +112,21 @@
             "url": "https://composer.fluxui.dev"
         }
     },
-    "scripts": {
-        "post-install-cmd": [
-            "Fuse\\Composer\\Hooks::postInstall"
-        ],
-        "post-update-cmd": [
-            "Fuse\\Composer\\Hooks::postUpdate"
-        ]
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
     },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "version": "0.19"
 }

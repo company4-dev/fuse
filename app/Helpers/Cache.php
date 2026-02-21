@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuse\Helpers;
+namespace App\Helpers;
 
 use Closure;
 use DateInterval;
 use DateTimeInterface;
 use Exception;
-use Fuse\Models\User;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Cache as LaravelCache;
 use Illuminate\Support\Facades\Schema;

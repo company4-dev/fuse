@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\Helpers;
+namespace App\Helpers;
 
 use Exception;
 use Illuminate\Support\Facades\Log as FacadeLog;

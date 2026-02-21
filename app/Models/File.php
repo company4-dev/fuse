@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuse\Models;
+namespace App\Models;
 
 use Company4\FileVault\Facades\FileVault;
-use Fuse\Helpers\Conversions;
-use Fuse\Helpers\Storage;
-use Fuse\Observers\FileObserver;
-use Fuse\Traits\BaseModel;
+use App\Helpers\Conversions;
+use App\Helpers\Storage;
+use App\Observers\FileObserver;
+use App\Traits\BaseModel;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;

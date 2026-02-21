@@ -1,15 +1,15 @@
 <?php
 
-namespace Fuse\Traits;
+namespace App\Traits;
 
 use Closure;
-use Fuse\Helpers\Log;
-use Fuse\Helpers\Schedule;
-use Fuse\Hooks\Form as FormHook;
-use Fuse\Hooks\Form as HooksForm;
-use Fuse\Rules\IsValidEmail;
-use Fuse\Rules\IsValidPassword;
-use Fuse\View\Components\Form;
+use App\Helpers\Log;
+use App\Helpers\Schedule;
+use App\Hooks\Form as FormHook;
+use App\Hooks\Form as HooksForm;
+use App\Rules\IsValidEmail;
+use App\Rules\IsValidPassword;
+use App\View\Components\Form;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\Livewire;
+namespace App\Livewire;
 
 use Illuminate\Support\Str;
 use Illuminate\View\View;

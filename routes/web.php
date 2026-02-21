@@ -1,7 +1,7 @@
 <?php
 
-use Fuse\Helpers\Tenancy;
-use Fuse\Http\Controllers\UserImpersonationController;
+use App\Helpers\Tenancy;
+use App\Http\Controllers\UserImpersonationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -86,3 +86,4 @@ if ($tenancy_enabled) {
 
 // Auth
 require __DIR__.'/auth.php';
+require __DIR__.'/settings.php';

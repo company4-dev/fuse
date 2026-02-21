@@ -2,9 +2,9 @@
 
 namespace Database\Seeders\Tenants;
 
-use Fuse\Enums\Permissions;
-use Fuse\Models\Permission;
-use Fuse\Models\Role;
+use App\Enums\Permissions;
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class RolesSeeder extends Seeder

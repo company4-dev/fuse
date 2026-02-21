@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\Helpers;
+namespace App\Helpers;
 
-use Fuse\Hooks\Permissions as HooksPermissions;
+use App\Hooks\Permissions as HooksPermissions;
 
 class Permissions
 {

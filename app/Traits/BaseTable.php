@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\Traits;
+namespace App\Traits;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use ReflectionMethod;

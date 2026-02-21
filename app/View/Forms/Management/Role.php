@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\View\Forms\Management;
+namespace App\View\Forms\Management;
 
-use Fuse\Traits\BaseLivewireForm;
+use App\Traits\BaseLivewireForm;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Form;

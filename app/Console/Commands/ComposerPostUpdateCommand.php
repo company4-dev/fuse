@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Console\Commands;
+namespace App\Console\Commands;
 
-use Fuse\Helpers\Platforms;
-use Fuse\Traits\BaseCommand;
+use App\Helpers\Platforms;
+use App\Traits\BaseCommand;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 

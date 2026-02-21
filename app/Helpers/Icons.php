@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Helpers;
+namespace App\Helpers;
 
 use Carbon\Carbon;
-use Fuse\Hooks\Icons as HooksIcons;
+use App\Hooks\Icons as HooksIcons;
 use Illuminate\Support\Str;
 
 class Icons

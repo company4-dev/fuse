@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\View\Forms\Auth;
+namespace App\View\Forms\Auth;
 
-use Fuse\Traits\BaseLivewireForm;
+use App\Traits\BaseLivewireForm;
 use Livewire\Attributes\Locked;
 use Livewire\Form;
 

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Fuse\Hooks\Permissions as HooksPermissions;
-use Fuse\Models\Permission;
+use App\Hooks\Permissions as HooksPermissions;
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
 class PermissionsSeeder extends Seeder

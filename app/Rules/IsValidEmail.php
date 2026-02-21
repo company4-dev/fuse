@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\Rules;
+namespace App\Rules;
 
 use Closure;
 use Egulias\EmailValidator\EmailValidator;

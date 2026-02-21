@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Helpers;
+namespace App\Helpers;
 
 use Exception;
-use Fuse\Models\Setting;
+use App\Models\Setting;
 
 class Settings
 {
@@ -67,21 +67,21 @@ class Settings
         $migration_parameters             = config('tenancy.migration_parameters');
         $migration_parameters['--path'][] = base_path('database/migrations/tenant');
 
-        foreach (Platforms::active()->get() as $platform) {
-            $migration_parameters['--path'][] = $platform->getPath().'/database/migrations/tenant';
-        }
+        // foreach (Platforms::active()->get() as $platform) {
+        //     $migration_parameters['--path'][] = $platform->getPath().'/database/migrations/tenant';
+        // }
 
         config([
-            'app.name' => Cache::forever(
-                'jellybean',
-                'platform.name',
-                1,
-                function () {
-                    $base_platform = Platforms::active()->first();
+            // 'app.name' => Cache::forever(
+            //     'jellybean',
+            //     'platform.name',
+            //     1,
+            //     function () {
+            //         $base_platform = Platforms::active()->first();
 
-                    return $base_platform ? config($base_platform->getLowerName())['name'] : config('app.name');
-                }
-            ),
+            //         return $base_platform ? config($base_platform->getLowerName())['name'] : config('app.name');
+            //     }
+            // ),
             'settings'                     => $formatted,
             'tenancy.migration_parameters' => $migration_parameters,
         ]);

@@ -1,14 +1,14 @@
 <?php
 
-namespace Fuse\Models;
+namespace App\Models;
 
-use Fuse\Enums\Permissions;
-use Fuse\Enums\TenantDisplay;
-use Fuse\Helpers\Cache;
-use Fuse\Helpers\Platforms;
-use Fuse\Helpers\Tenants;
-use Fuse\Observers\PermissionObserver;
-use Fuse\Traits\BaseModel;
+use App\Enums\Permissions;
+use App\Enums\TenantDisplay;
+use App\Helpers\Cache;
+use App\Helpers\Platforms;
+use App\Helpers\Tenants;
+use App\Observers\PermissionObserver;
+use App\Traits\BaseModel;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

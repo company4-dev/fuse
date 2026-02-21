@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuse\Helpers;
+namespace App\Helpers;
 
 use Illuminate\Support\Facades\Storage as FacadesStorage;
 

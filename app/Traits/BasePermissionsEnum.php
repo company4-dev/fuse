@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\Traits;
+namespace App\Traits;
 
-use Fuse\Enums\TenantDisplay;
+use App\Enums\TenantDisplay;
 
 trait BasePermissionsEnum
 {

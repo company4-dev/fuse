@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Http\Middleware;
+namespace App\Http\Middleware;
 
-use Fuse\Helpers\Log;
-use Fuse\Helpers\Settings as SettingsHelper;
+use App\Helpers\Log;
+use App\Helpers\Settings as SettingsHelper;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

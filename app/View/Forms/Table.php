@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\View\Forms;
+namespace App\View\Forms;
 
-use Fuse\Helpers\Translations;
-use Fuse\Traits\BaseLivewireForm;
+use App\Helpers\Translations;
+use App\Traits\BaseLivewireForm;
 use Livewire\Form;
 
 class Table extends Form

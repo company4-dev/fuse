@@ -1,10 +1,10 @@
 <?php
 
-namespace Fuse\Models;
+namespace App\Models;
 
-use Fuse\Helpers\Cache;
-use Fuse\Observers\ActivityObserver;
-use Fuse\Traits\BaseModel;
+use App\Helpers\Cache;
+use App\Observers\ActivityObserver;
+use App\Traits\BaseModel;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Spatie\Activitylog\Models\Activity as BaseActivity;

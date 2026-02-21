@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuse\Traits;
+namespace App\Traits;
 
 use Exception;
-use Fuse\Helpers\Formatters;
+use App\Helpers\Formatters;
 use Illuminate\Support\Str;
 
 trait BaseInputComponent

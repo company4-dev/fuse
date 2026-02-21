@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Fuse\Hooks\Seeder as HooksSeeder;
+use App\Hooks\Seeder as HooksSeeder;
 use Illuminate\Database\Seeder;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;

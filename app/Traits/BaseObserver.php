@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuse\Traits;
+namespace App\Traits;
 
-use Fuse\Helpers\Cache;
+use App\Helpers\Cache;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 

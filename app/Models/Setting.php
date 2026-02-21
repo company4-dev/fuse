@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuse\Models;
+namespace App\Models;
 
 use Exception;
-use Fuse\Helpers\Log;
-use Fuse\Observers\SettingObserver;
-use Fuse\Traits\BaseModel;
+use App\Helpers\Log;
+use App\Observers\SettingObserver;
+use App\Traits\BaseModel;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
