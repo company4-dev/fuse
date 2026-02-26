@@ -9,7 +9,7 @@ return [
     // @see https://docs.sentry.io/product/sentry-basics/dsn-explainer/
     'dsn' => env(
         'SENTRY_LARAVEL_DSN',
-        'https://876a2968f71517a80698af26eb67bdd2@o4509722450198528.ingest.de.sentry.io/4509882539966544',
+        'https://2630c3f39f7ba25060bec3644025876e@o4508263303479296.ingest.de.sentry.io/4510755400515664',
     ),
 
     // @see https://spotlightjs.com/
