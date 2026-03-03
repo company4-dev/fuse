@@ -29,12 +29,19 @@ return [
     */
 
     'disks' => [
-
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
             'serve' => true,
             'throw' => false,
+            'report' => false,
+        ],
+
+        'fuses' => [
+            'driver' => 'local',
+            'root'   => base_path('/Fuses'),
+            'serve'  => true,
+            'throw'  => false,
             'report' => false,
         ],
 

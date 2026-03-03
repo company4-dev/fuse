@@ -1,20 +1,24 @@
 <?php
 
-test('registration screen can be rendered', function () {
-    $response = $this->get(route('register'));
+use Livewire\Livewire;
 
-    $response->assertOk();
+test('registration screen can be rendered', function () {
+    $response = $this->get('/register');
+
+    $response->assertStatus(200);
 });
 
 test('new users can register', function () {
-    $response = $this->post(route('register.store'), [
-        'name' => 'John Doe',
-        'email' => 'test@example.com',
-        'password' => 'password',
-        'password_confirmation' => 'password',
-    ]);
+    $response = Livewire::test('auth.register')
+        ->set('first_name', 'Test')
+        ->set('last_name', 'User')
+        ->set('email', 'test@example.com')
+        ->set('password', 'password')
+        ->set('password_confirmation', 'password')
+        ->call('register');
 
-    $response->assertSessionHasNoErrors()
+    $response
+        ->assertHasNoErrors()
         ->assertRedirect(route('dashboard', absolute: false));
 
     $this->assertAuthenticated();

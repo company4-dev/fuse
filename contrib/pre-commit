@@ -1,0 +1,84 @@
+#!/bin/bash
+ESLINT="npx eslint"
+ESLINT_STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR HEAD | grep -E '\.(cjs|js|mjc|md)$')
+LOG_PATH=./storage/logs/git-hooks.log
+PHP_STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR HEAD | grep -E '\.(php)$')
+
+open_vs_code() {
+    echo "" &> /dev/null
+    if code $LOG_PATH &> /dev/null; then
+        echo "" &> /dev/null
+    else
+        cat $LOG_PATH
+    fi
+    echo -e "[\e[32m$(date +%T)\e[97m] \e[31mOne or More Checks failed. Opened VSCode\e[97m" >> $LOG_PATH
+    exit 1
+}
+
+echo -e "[\e[32m$(date +%T)\e[97m] Starting pre-commit processing" >> $LOG_PATH
+if [ "$ESLINT_STAGED_FILES" != "" ]
+then
+    echo -e "  [\e[32m$(date +%T)\e[97m] Processing \e[36m$(wc -l <<< $ESLINT_STAGED_FILES)\e[0m JavaScript and Markdown files..." >> $LOG_PATH
+
+    echo -e "    [\e[32m$(date +%T)\e[97m] Running ESLint..." >> $LOG_PATH
+    ESLINT_OUTPUT=$($ESLINT $ESLINT_STAGED_FILES --fix 2>&1)
+    ESLINT_EXIT_CODE=$?
+
+    if [ $ESLINT_EXIT_CODE -ne 0 ]; then
+        echo "$ESLINT_OUTPUT" >> $LOG_PATH
+    fi
+
+    git add $ESLINT_STAGED_FILES
+
+    echo -e "  [\e[32m$(date +%T)\e[97m] Finished processing JavaScript and Markdown files" >> $LOG_PATH
+fi
+
+if [ "$PHP_STAGED_FILES" != "" ]
+then
+    echo -e "  [\e[32m$(date +%T)\e[97m] Processing \e[36m$(wc -l <<< $PHP_STAGED_FILES)\e[0m PHP files..." >> $LOG_PATH
+
+    # Rector
+    echo -e "    [\e[32m$(date +%T)\e[97m] Running Rector..." >> $LOG_PATH
+    RECTOR_OUTPUT=$(vendor/bin/rector process $PHP_STAGED_FILES 2>&1)
+    if echo "$RECTOR_OUTPUT" | grep -q "file has been changed\|files have been changed"; then
+        echo "$RECTOR_OUTPUT" >> $LOG_PATH
+    fi
+
+    # Pint
+    echo -e "    [\e[32m$(date +%T)\e[97m] Running Laravel Pint..." >> $LOG_PATH
+    PINT_OUTPUT=$(vendor/bin/pint --parallel $PHP_STAGED_FILES 2>&1)
+    if echo "$PINT_OUTPUT" | grep -q "FIXED"; then
+        echo "$PINT_OUTPUT" >> $LOG_PATH
+    fi
+
+    # Larastan
+    echo -e "    [\e[32m$(date +%T)\e[97m] Running Larastan..." >> $LOG_PATH
+    PHPSTAN_OUTPUT=$(vendor/bin/phpstan analyse  $(echo "$PHP_STAGED_FILES" | grep -v "deploy.php") 2>&1)
+    if echo "$PHPSTAN_OUTPUT" | grep -q "ERROR"; then
+        echo "$PHPSTAN_OUTPUT" >> $LOG_PATH
+    fi
+
+    # PHPCS
+    echo -e "    [\e[32m$(date +%T)\e[97m] Running PHPCS..." >> $LOG_PATH
+    PHPCS_OUTPUT=$(vendor/bin/phpcs $PHP_STAGED_FILES 2>&1)
+    if echo "$PHPCS_OUTPUT" | grep -q "ERROR"; then
+        echo "$PHPCS_OUTPUT" >> $LOG_PATH
+    fi
+
+    # If Rector or Pint have modified files, add them back to staging
+    if echo "$RECTOR_OUTPUT" | grep -q "file has been changed\|files have been changed" \
+        || echo "$PINT_OUTPUT" | grep -q "FIXED"; then
+        git add $PHP_STAGED_FILES
+    fi
+
+    # If there are PHPStan or PHPCS errors, open VS Code for review
+    if echo "$PHPSTAN_OUTPUT" | grep -q "ERROR" \
+        || echo "$PHPCS_OUTPUT" | grep -q "ERROR"; then
+        open_vs_code
+    fi
+
+    echo -e "  [\e[32m$(date +%T)\e[97m] Finished processing PHP files..." >> $LOG_PATH
+fi
+
+echo -e "[\e[32m$(date +%T)\e[97m] Finished pre-commit processing" >> $LOG_PATH
+exit 0
