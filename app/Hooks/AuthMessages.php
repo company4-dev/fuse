@@ -16,7 +16,7 @@ class AuthMessages
         $quotes         = [];
 
         $default_quotes = [
-            '&ldquo;Hi There! My name is Sheldon. I have just met you, and I love you.&rdquo;',
+            '&ldquo;Hi There! My name is Rolo. I have just met you, and I love you.&rdquo;',
             '&ldquo;I can smell you!&rdquo;',
             '&ldquo;I do not like the cone of shame.&rdquo;',
             '&ldquo;Squirrel!&rdquo;',

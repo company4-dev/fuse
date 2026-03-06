@@ -1,0 +1,21 @@
+@php
+    $attributes = $unescapedForwardedAttributes ?? $attributes;
+@endphp
+
+@props([
+    'variant' => 'outline',
+])
+
+@php
+    $classes = Flux::classes('shrink-0')
+        ->add(match($variant) {
+            'outline' => '[:where(&)]:size-6',
+            'solid' => '[:where(&)]:size-6',
+            'mini' => '[:where(&)]:size-5',
+            'micro' => '[:where(&)]:size-4',
+        });
+@endphp
+{{-- Your SVG code here: --}}
+<svg {{ $attributes->class($classes) }} data-flux-icon aria-hidden="true" viewBox="0 0 640 512" fill="currentColor">
+    <path style="opacity:0.4" d="M128 288l64 0 0 64-64 0 0-64zm160 0l64 0 0 64-64 0 0-64zM384 32l64 0 0 64-64 0 0-64z"/><path class="fa-primary" d="M16 0c8.8 0 16 7.2 16 16l0 144 576 0 0-144c0-8.8 7.2-16 16-16s16 7.2 16 16l0 160 0 256 0 64c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48L32 448l0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64L0 176 0 16C0 7.2 7.2 0 16 0zM32 416l576 0 0-224L32 192l0 224zM448 32l-64 0 0 64 64 0 0-64zM384 0l64 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32zM128 288l0 64 64 0 0-64-64 0zm-32 0c0-17.7 14.3-32 32-32l64 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-64zm192 0l0 64 64 0 0-64-64 0zm-32 0c0-17.7 14.3-32 32-32l64 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-64z"/>
+</svg>
