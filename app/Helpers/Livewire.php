@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use Livewire\Component;
 
-class Livewire extends Component
+abstract class Livewire extends Component
 {
     public static function layout(?array $breadcrumbs = null, null|object|string $avatar = null, ?array $menu = null)
     {
@@ -21,5 +21,10 @@ class Livewire extends Component
                 'title'       => $breadcrumbs ? $breadcrumbs[array_key_last($breadcrumbs)] : 'dictionary.dashboard',
             ]
         );
+    }
+
+    public function mount()
+    {
+        dump('mount');
     }
 }

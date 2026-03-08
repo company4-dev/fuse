@@ -5,7 +5,7 @@ namespace App\Hooks;
 use App\Enums\FuseHook;
 use App\Enums\TenantDisplay;
 use App\Helpers\Icons;
-use App\Helpers\Tenants;
+use App\Helpers\Tenancy;
 use App\Traits\BaseHook;
 use Exception;
 
@@ -15,7 +15,7 @@ class Menu
 
     public static function get(mixed ...$args)
     {
-        $is_tenant = Tenants::is_tenant();
+        $is_tenant = Tenancy::is_tenant();
 
         $links = [
             [

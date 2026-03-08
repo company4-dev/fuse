@@ -16,20 +16,23 @@ class Table extends Component
 
     public function mount($table)
     {
-        $module      = null;
-        $table_class = 'Fuses\\';
+        $fuse = null;
+        $path = '\\View\\Tables';
 
-        [$module, $feature, $table] = array_pad(explode('.', $table), 3, null);
+        if (str_contains($table, '::')) {
+            [$fuse, $table] = explode('::', $table);
 
-        $table_class .= Str::studly($module).'\\View\\Tables\\';
-
-        if (!$table) {
-            $table = $feature;
+            $table_class = '\\Fuses\\'.Str::studly($fuse);
         } else {
-            $table_class = Str::studly($feature).'\\';
+            $table_class = '\\App';
         }
 
-        $table_class .= Str::studly($table);
+        $namespace = implode('\\', array_map(
+            fn ($folder) => Str::studly($folder),
+            explode('.', $table)
+        ));
+
+        $table_class .= $path.'\\'.$namespace;
 
         $this->model       = $table_class::MODEL;
         $this->table_class = $table_class;
@@ -48,7 +51,7 @@ class Table extends Component
     {
         $table = new $this->table_class;
 
-        $models = $table->getModels();
+        $models = $table->getModels($table);
 
         return view(
             'livewire.table',

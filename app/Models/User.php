@@ -18,14 +18,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Kodeine\Metable\Metable;
-use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 #[ObservedBy(UserObserver::class)]
 class User extends Authenticatable
 {
     use BaseModel;
-    use HasApiTokens;
     use HasFactory;
     use HasRoles;
     use Metable;

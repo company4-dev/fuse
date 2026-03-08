@@ -15,6 +15,7 @@ class NewTenant extends BaseMail
     public function __construct($recipient, array|Collection|null $data = null)
     {
         Log::emergency('Move to Fuse folder');
+
         parent::__construct(
             recipient: $recipient,
             data:      $data,

@@ -1,99 +1,98 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-Route::view('/', 'home')->name('home');
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
-});
-
-require __DIR__.'/settings.php';
-
-// use App\Helpers\Tenancy;
-// use App\Http\Controllers\UserImpersonationController;
 // use Illuminate\Support\Facades\Route;
-// use Illuminate\Support\Facades\Storage;
-// use Illuminate\Support\Str;
-// use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 
-// $tenancy_enabled    = Tenancy::enabled();
-// $tenancy_middleware = $tenancy_enabled ? ['universal', InitializeTenancyByDomainOrSubdomain::class] : [];
+// Route::view('/', 'home')->name('home');
 
-// if ($tenancy_enabled) {
-//     foreach (config('tenancy.central_domains') as $domain) {
-//         Route::domain($domain)->group(function () {
-//             Route
-//                 ::get('/', fn () => view('home'));
-//         });
-//     }
-// } else {
-//     Route::get('/', fn () => view('home'));
-// }
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::livewire('dashboard', 'pages::dashboard')->name('dashboard');
+// });
 
-// // Global Routes
-// Route
-//     ::middleware(array_merge(['guest'], $tenancy_middleware))
-//     ->group(function () {
-//         Route::redirect('/', '/login');
-//     });
+// require __DIR__.'/settings.php';
 
-// Route
-//     ::middleware(array_merge(['auth'], $tenancy_middleware))
-//     ->group(function () {
-//         Route::livewire('app', 'dashboard')->name('dashboard');
-//     });
+use App\Helpers\Tenancy;
+use App\Http\Controllers\UserImpersonationController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 
-// Route
-//     ::middleware(array_merge(['auth', 'verified'], $tenancy_middleware))
-//     ->group(function () {
-//         $livewire_path = '/resources/views/livewire';
-//         // $fuse_root     = Storage::disk('fuse');
-//         $fuse_root     = Storage::disk('local');
-//         $routes        = [];
+$tenancy_enabled    = Tenancy::enabled();
+$tenancy_middleware = $tenancy_enabled ? ['universal', InitializeTenancyByDomainOrSubdomain::class] : [];
 
-//         // Base Routes
-//         $allowed_paths = [
-//             'management',
-//             'tenants',
-//             'users',
-//         ];
+if ($tenancy_enabled) {
+    foreach (config('tenancy.central_domains') as $domain) {
+        Route::domain($domain)->group(function () {
+            Route
+                ::get('/', fn () => view('home'));
+        });
+    }
+} else {
+    Route::get('/', fn () => view('home'));
+}
 
-//         Route::livewire('app/profile', 'profile')->name('profile');
+// Global Routes
+Route
+    ::middleware(array_merge(['guest'], $tenancy_middleware))
+    ->group(function () {
+        Route::redirect('/', '/login');
+    });
 
-//         foreach ($allowed_paths as $path) {
-//             $routes['app/'.$path] = $path;
+Route
+    ::middleware(array_merge(['auth'], $tenancy_middleware))
+    ->group(function () {
+        Route::livewire('app', 'pages::dashboard')->name('dashboard');
+    });
 
-//             Route::livewire('app/'.$path, $path.'.list')->name($path);
+Route
+    ::middleware(array_merge(['auth', 'verified'], $tenancy_middleware))
+    ->group(function () {
+        $livewire_path = '/resources/views/pages';
+        $fuse_root     = Storage::disk('root');
+        $routes        = [];
 
-//             foreach ($fuse_root->allFiles($livewire_path.'/'.$path) as $file) {
-//                 $view_file = Str::replace([substr($livewire_path, 1).'/', '.blade.php'], '', $file);
+        // Base Routes
+        $allowed_paths = [
+            'management',
+            'tenants',
+            'users',
+        ];
 
-//                 $path = 'app/'.$view_file;
-//                 $name = Str::replace(['app/', '/'], ['', '.'], $view_file);
+        Route::livewire('app/profile', 'pages::profile')->name('profile');
 
-//                 $routes[$path.'/{id?}'] = $name;
+        foreach ($allowed_paths as $path) {
+            $routes['app/'.$path] = $path;
 
-//                 Route::livewire($path.'/{id?}', $name)->name($name);
-//             }
-//         }
+            Route::livewire('app/'.$path, 'pages::'.$path.'.list')->name($path);
 
-//         // dump($routes);
-//     });
+            foreach ($fuse_root->allFiles($livewire_path.'/'.$path) as $file) {
+                $view_file = Str::replace([substr($livewire_path, 1).'/', '.blade.php', '⚡'], '', $file);
 
-// // Edge Cases
-// if ($tenancy_enabled) {
-//     Route
-//         ::middleware([
-//             'web',
-//             InitializeTenancyByDomainOrSubdomain::class,
-//             // PreventAccessFromCentralDomains::class,
-//         ])
-//         ->group(function () {
-//             Route::get('/app/user/impersonate/{token}', UserImpersonationController::class)->name('user.impersonate');
-//         });
-// }
+                $path = 'app/'.$view_file;
+                $name = Str::replace(['app/', '/'], ['', '.'], $view_file);
+
+                $routes[$path.'/{id?}'] = $name;
+
+                Route::livewire($path.'/{id?}', 'pages::'.$name)->name($name);
+            }
+        }
+
+        // dump($routes);
+    });
+
+// Edge Cases
+if ($tenancy_enabled) {
+    Route
+        ::middleware([
+            'web',
+            InitializeTenancyByDomainOrSubdomain::class,
+            // PreventAccessFromCentralDomains::class,
+        ])
+        ->group(function () {
+            Route::get('/app/user/impersonate/{token}', UserImpersonationController::class)->name('user.impersonate');
+        });
+}
 
 // // Auth
-// require __DIR__.'/auth.php';
-// require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/settings.php';

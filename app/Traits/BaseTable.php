@@ -60,8 +60,11 @@ trait BaseTable
 
         $columns      = $this->getColumns();
         $default_sort = null;
-        $filter       = $table->form->filter;
+        $filter       = null;
+        $has_form     = property_exists($table, 'form');
         $model        = self::MODEL;
+
+        $filter = $has_form ? $table->form->filter : null;
 
         $columns[]    = 'id';
         $default_sort = $model::defaultSort();
@@ -75,7 +78,7 @@ trait BaseTable
                 fn ($query) => $query->orderByRaw('deleted_at IS NULL DESC')
             )
             ->when(
-                method_exists($table->form, 'query'),
+                $has_form && method_exists($table->form, 'query'),
                 fn ($query) => $table->form->query($query, $table->id, $filter, $table->data)
             )
             ->when(
@@ -87,7 +90,7 @@ trait BaseTable
         $columns = $query->getQuery()->columns;
 
         $query = $query->when(
-            $table->form->search,
+            $has_form && $table->form->search,
             fn ($query) => $query->search($table->form->search, $columns)
         );
 

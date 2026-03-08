@@ -1,11 +1,38 @@
 <?php
 
+use App\Helpers\Livewire;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
 use App\Livewire\Forms\Auth\Register;
-use Livewire\Component;
 
-new class extends Component
+new class extends Livewire
 {
     public Register $form;
+
+    public function submit(): void
+    {
+        $this->form->process(
+            $this,
+            function ($validated) {
+                $validated = $validated->toArray();
+
+                $validated['password'] = Hash::make($validated['password']);
+
+                unset($validated['password_confirmation']);
+
+                $user = User::create($validated);
+
+                $user->save(['created_by' => null, 'updated_by' => null]);
+
+                event(new Registered($user));
+
+                Auth::login($user);
+
+                $this->redirectIntended(route('dashboard', absolute: false), navigate: true);
+            }
+        );
+    }
 };
 ?>
 

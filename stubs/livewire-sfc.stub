@@ -1,0 +1,22 @@
+<?php
+
+use App\Helpers\Icons;
+use App\Helpers\Livewire;
+
+new class extends Livewire
+{
+    public function mount()
+    {
+        Livewire::layout(
+            [
+                'dictionary.page',
+            ],
+            Icons::icons(),
+        );
+    }
+};
+?>
+
+<div>
+    {{-- [quote] --}}
+</div>

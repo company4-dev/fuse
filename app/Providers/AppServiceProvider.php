@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Helpers\Cache as CacheHelper;
 use App\Helpers\Icons as IconsHelper;
-use App\Hooks\Menu;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
@@ -64,17 +63,6 @@ class AppServiceProvider extends ServiceProvider
 
                 View::share([
                     'vite' => $vite,
-                ]);
-            }
-        );
-
-        View::composer(
-            [
-                'components.layouts.app',
-            ],
-            function () {
-                View::share([
-                    'links' => Menu::get(),
                 ]);
             }
         );
