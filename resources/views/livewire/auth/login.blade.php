@@ -15,6 +15,7 @@ new class extends Livewire
 
     public function mount()
     {
+        dd('Replace Tenancy with spatie/laravel-multitenancy');
         Livewire::layout();
     }
 
