@@ -86,6 +86,8 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
+            - name: Checkout
+              uses: actions/checkout@v4
             - name: Set-up Git
               run: >
                 git config --global user.email "ci@company4.dev"
