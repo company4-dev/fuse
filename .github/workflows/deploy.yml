@@ -89,13 +89,13 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
             - name: Set-up Git
-              run: >
+              run: |
                 git config --global user.email "ci@company4.dev"
                 git config --global user.name "GitHub CI"
                 git fetch origin main
                 git checkout main
             - name: Update release
-              run: >
+              run: |
                 # Tag Release
                 git fetch --tags origin
 
