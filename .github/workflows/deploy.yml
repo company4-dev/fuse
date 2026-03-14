@@ -4,6 +4,7 @@ on:
     push:
       branches:
         - main
+        - '2026'
 
 permissions:
   contents: write
@@ -82,6 +83,35 @@ jobs:
     #
     #   - name: Run Tests
         # run: ./vendor/bin/pest
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Update release
+              run: >
+                # Tag Release
+                git fetch --tags origin
+
+                YEAR_MONTH=$(date +'%Y.%m')
+                MONTHLY_TAGS=$(git tag -l "${YEAR_MONTH}.*" | sort -V)
+
+                if [ -z "$MONTHLY_TAGS" ]; then
+                    MONTHLY_BUILD_NUMBER=1
+                else
+                    LATEST_TAG=$(echo "$MONTHLY_TAGS" | tail -n 1)
+                    LATEST_BUILD_NUMBER=$(echo "$LATEST_TAG" | cut -d'.' -f3)
+                    MONTHLY_BUILD_NUMBER=$((LATEST_BUILD_NUMBER + 1))
+                fi
+
+                VERSION="${YEAR_MONTH}.${MONTHLY_BUILD_NUMBER}"
+
+                # Update composer version
+                jq --indent 4 --arg v "$VERSION" '.version = $v' composer.json > tmp.json && mv tmp.json composer.json
+                git add composer.json
+                git commit -m "Build updates [skip ci]"
+                git push origin HEAD
+
+                git tag -a "$VERSION" -m "Release version $VERSION"
+                git push origin "$VERSION"
 #   deploy-production:
 #     name: Deploy Project to Production Server
 #     runs-on: ubuntu-latest
