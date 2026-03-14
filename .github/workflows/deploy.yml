@@ -86,6 +86,12 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
+            - name: Set-up Git
+              run: >
+                git config --global user.email "ci@company4.dev"
+                git config --global user.name "GitHub CI"
+                git fetch origin main
+                git checkout main
             - name: Update release
               run: >
                 # Tag Release
