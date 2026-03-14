@@ -9,11 +9,11 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 $tenancy_middleware = Tenancy::enabled() ? ['universal', InitializeTenancyByDomainOrSubdomain::class] : [];
 
 Route::middleware(array_merge(['guest'], $tenancy_middleware))->group(function () {
-    Route::livewire('login', 'pages::auth.login')
+    Route::livewire('login', 'auth.login')
         ->name('login');
 
-    // Route::livewire('register', 'auth.register')
-    //     ->name('register');
+    Route::livewire('register', 'auth.register')
+        ->name('register');
 
     Route::livewire('forgot-password', 'auth.forgot-password')
         ->name('password.request');

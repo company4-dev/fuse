@@ -1,3 +1,58 @@
+<?php
+
+use App\Helpers\Livewire;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Livewire\Attributes\Layout;
+
+new #[Layout('layouts::auth', ['title' => 'Reset password'])] class extends Livewire
+{
+    public string $token;
+    public string $email = '';
+    public string $password = '';
+    public string $password_confirmation = '';
+
+    public function mount($token)
+    {
+        $this->token = $token;
+
+        Livewire::layout();
+    }
+
+    public function resetPassword()
+    {
+        $this->validate([
+            'token' => ['required'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'confirmed', 'min:8'],
+        ]);
+
+        $status = Password::reset(
+            [
+                'token' => $this->token,
+                'email' => $this->email,
+                'password' => $this->password,
+                'password_confirmation' => $this->password_confirmation,
+            ],
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                ])->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        if ($status === Password::PASSWORD_RESET) {
+            return redirect()->route('login', absolute: false);
+        }
+
+        $this->addError('email', __($status));
+    }
+};
+?>
+
 <x-layouts::auth :title="__('Reset password')">
     <div class="flex flex-col gap-6">
         <x-auth-header :title="__('Reset password')" :description="__('Please enter your new password below')" />
@@ -5,15 +60,15 @@
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
-        <form method="POST" action="{{ route('password.update') }}" class="flex flex-col gap-6">
+        <form wire:submit.prevent="resetPassword" class="flex flex-col gap-6">
             @csrf
             <!-- Token -->
-            <input type="hidden" name="token" value="{{ request()->route('token') }}">
+            <input type="hidden" name="token" value="{{ $token }}">
 
             <!-- Email Address -->
             <flux:input
                 name="email"
-                value="{{ request('email') }}"
+                wire:model.defer="email"
                 :label="__('Email')"
                 type="email"
                 required
@@ -23,6 +78,7 @@
             <!-- Password -->
             <flux:input
                 name="password"
+                wire:model.defer="password"
                 :label="__('Password')"
                 type="password"
                 required
@@ -34,6 +90,7 @@
             <!-- Confirm Password -->
             <flux:input
                 name="password_confirmation"
+                wire:model.defer="password_confirmation"
                 :label="__('Confirm password')"
                 type="password"
                 required

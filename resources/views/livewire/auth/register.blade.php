@@ -5,10 +5,16 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use App\Livewire\Forms\Auth\Register;
+use Livewire\Attributes\Layout;
 
-new class extends Livewire
+new  #[Layout('layouts::auth', ['title' => 'Register'])] class extends Livewire
 {
     public Register $form;
+
+    public function mount()
+    {
+        Livewire::layout();
+    }
 
     public function submit(): void
     {

@@ -1,6 +1,3 @@
-@php
-    $quote = \App\Hooks\AuthMessages::get();
-@endphp
 <x-layouts::base class="min-h-screen bg-white antialiased dark:bg-linear-to-b dark:from-neutral-950 dark:to-neutral-900" :title="$title ?? null">
     <div class="relative grid h-dvh flex-col items-center justify-center px-8 sm:px-0 lg:max-w-none lg:grid-cols-2 lg:px-0">
         <div class="bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:border-e dark:border-neutral-800 z-10">
@@ -16,11 +13,11 @@
             />
 
             <div class="flex items-center relative z-20 mt-auto">
-                {{-- <img class="z-10 max-h-96 self-start" height="300" src="/rolo/sitting.png"> --}}
+                <img class="z-10 max-h-96 self-start" height="300" src="/rolo/sitting.png">
 
                 <div>
                     <blockquote class="space-y-2">
-                        <flux:heading size="lg">{!! trim($quote) !!}</flux:heading>
+                        <flux:heading size="lg">{!! trim(\App\Hooks\AuthMessages::get()) !!}</flux:heading>
                     </blockquote>
                 </div>
             </div>

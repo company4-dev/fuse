@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Layout;
 
-new class extends Livewire
+new #[Layout('layouts::auth', ['title' => 'Log In'])] class extends Livewire
 {
     public Login $form;
 
@@ -66,21 +67,19 @@ new class extends Livewire
 ?>
 
 <div>
-    <x-layouts::auth :title="__('Log in')">
-        @if (session('status'))
-            <x-callout variant="success">
-                {{ session('status') }}
-            </x-callout>
-        @endif
+    @if (session('status'))
+        <x-callout variant="success">
+            {{ session('status') }}
+        </x-callout>
+    @endif
 
-        <flux:card>
-            <flux:heading class="text-center" size="lg">
-                {{ ___('dictionary.login') }}
-            </flux:heading>
+    <flux:card>
+        <flux:heading class="text-center" size="lg">
+            {{ ___('dictionary.login') }}
+        </flux:heading>
 
-            <x-separator />
+        <x-separator />
 
-            <x-form :action="route('login.store')" :$form type="ungrouped" />
-        </flux:card>
-    </x-layouts::auth>
+        <x-form :action="route('login.store')" :$form type="ungrouped" />
+    </flux:card>
 </div>
