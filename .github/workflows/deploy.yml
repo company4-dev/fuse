@@ -16,6 +16,8 @@ jobs:
     ci:
         runs-on: ubuntu-latest
         environment: Testing
+        permissions:
+            contents: write
 
         steps:
             - name: Checkout
@@ -141,11 +143,3 @@ jobs:
                 git add composer.json
                 git commit -m "chore: bump version to ${{ steps.version.outputs.version }}" || true
                 git push origin ${{ github.ref_name }}
-
-            - name: Create GitHub Release
-              uses: softprops/action-gh-release@v2
-              with:
-                body: ${{ steps.changelog.outputs.commits }}
-                draft: false
-                prerelease: false
-                tag_name: "${{ steps.version.outputs.version }}"
