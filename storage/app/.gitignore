@@ -1,4 +1,5 @@
 *
 !private/
 !public/
+!coverage.txt
 !.gitignore
