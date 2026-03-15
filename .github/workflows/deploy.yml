@@ -90,11 +90,12 @@ jobs:
             #   run: php artisan laravel-docs:generate
 
             - name: Set-up Git
-              run: >
+              run: |
+                BRANCH="${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}"
                 git config --global user.email "ci@company4.dev"
                 git config --global user.name "GitHub CI"
-                git fetch origin main
-                git checkout main
+                git fetch origin "$BRANCH"
+                git checkout "$BRANCH"
 
             - name: Generate changelog
               id: changelog
