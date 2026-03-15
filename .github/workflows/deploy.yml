@@ -5,10 +5,12 @@ on:
         branches:
             - main
             - dev
+            - '2026'
     pull_request:
         branches:
             - main
             - dev
+            - '2026'
 
 jobs:
     ci:
