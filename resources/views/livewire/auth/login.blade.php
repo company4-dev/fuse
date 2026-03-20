@@ -27,7 +27,13 @@ new #[Layout('layouts::auth', ['title' => 'Log In'])] class extends Livewire
             function ($validated) {
                 $this->ensure_is_not_rate_limited($validated);
 
-                if (!Auth::attempt(['email' => $this->form->email, 'password' => $this->form->password], $this->form->remember)) {
+                if (!Auth::attempt(
+                    [
+                        'email'    => $this->form->email,
+                        'password' => $this->form->password,
+                    ],
+                    $this->form->remember
+                )) {
                     RateLimiter::hit($this->throttle_key($validated));
 
                     throw ValidationException::withMessages([
@@ -38,7 +44,10 @@ new #[Layout('layouts::auth', ['title' => 'Log In'])] class extends Livewire
                 RateLimiter::clear($this->throttle_key($validated));
                 Session::regenerate();
 
-                $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+                $this->redirectIntended(
+                    default: route('dashboard', absolute: false),
+                    navigate: true
+                );
             }
         );
     }
@@ -62,7 +71,8 @@ new #[Layout('layouts::auth', ['title' => 'Log In'])] class extends Livewire
 
     private function throttle_key($validated)
     {
-        return Str::transliterate(Str::lower($validated['email']).'|'.request()->ip());
+        return Str::transliterate(Str::lower($validated['email']).'|'
+            .request()->ip());
     }
 };
 ?>
