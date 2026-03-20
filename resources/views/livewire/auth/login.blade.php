@@ -16,7 +16,7 @@ new #[Layout('layouts::auth', ['title' => 'Log In'])] class extends Livewire
 
     public function mount()
     {
-        dd('Replace Tenancy with spatie/laravel-multitenancy, and implement other sensible stuff from: https://saasykit.com/blog/the-first-things-you-should-do-when-you-start-a-new-laravel-project');
+        // dd('Replace Tenancy with spatie/laravel-multitenancy, and implement other sensible stuff from: https://saasykit.com/blog/the-first-things-you-should-do-when-you-start-a-new-laravel-project');
         Livewire::layout();
     }
 
