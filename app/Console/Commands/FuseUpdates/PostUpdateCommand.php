@@ -21,7 +21,10 @@ class PostUpdateCommand extends Command
 
         $fuse = $fuse ? $fuse->getName() : $this->argument('fuse');
 
-        $this->log('Resuming update for Fuse as files should have been uploaded: '.$fuse);
+        $this->log(
+            'Resuming update for Fuse as files should have been uploaded: '
+                .$fuse
+        );
 
         $this->log('Updating Database: Migrations');
         $this->log('- Core');
