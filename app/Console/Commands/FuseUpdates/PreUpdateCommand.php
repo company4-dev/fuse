@@ -25,7 +25,9 @@ class PreUpdateCommand extends Command
 
         $this->log('Entering Maintenance Mode');
         Artisan::call('optimize:clear');
-        Artisan::call('down --refresh=15 --render="errors::503" --secret="0f41693d-9bb7-4fad-9f50-8ec8f3760de6"');
+        Artisan::call(
+            'down --refresh=15 --render="errors::503" --secret="0f41693d-9bb7-4fad-9f50-8ec8f3760de6"'
+        );
 
         $this->log('Performing full backup');
         Artisan::call('backup:full');
