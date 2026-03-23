@@ -40,7 +40,11 @@ class FuseCommand extends Command
 
         foreach (array_keys(Artisan::all()) as $command) {
             if (str_starts_with($command, 'jb:')) {
-                $commands[$command] = Str::of($command)->substr(3)->headline()->toString();
+                $commands[$command] = Str
+                    ::of($command)
+                    ->substr(3)
+                    ->headline()
+                    ->toString();
             }
         }
 
