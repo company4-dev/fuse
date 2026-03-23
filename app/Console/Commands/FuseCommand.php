@@ -119,7 +119,10 @@ class FuseCommand extends Command
                 '@endsection',
             ];
 
-            file_put_contents(base_path('/resources/views/mail/'.$mailer.'.blade.php'), implode("\r\n", $blade));
+            file_put_contents(
+                base_path('/resources/views/mail/'.$mailer.'.blade.php'),
+                implode("\r\n", $blade)
+            );
         }
     }
 
@@ -132,7 +135,9 @@ class FuseCommand extends Command
             'app/View/Forms/'.$form.'.php',
         );
 
-        info('Form `'.$form.'` created successfully for `'.$this->getFuse().'`.');
+        info(
+            'Form `'.$form.'` created successfully for `'.$this->getFuse().'`.'
+        );
 
         return $form;
     }
@@ -149,7 +154,10 @@ class FuseCommand extends Command
             options: [1 => 'Yes', 0 => 'No']
         );
 
-        $migration = Str::snake(text('What\'s the migration called?', required: true));
+        $migration = Str::snake(
+            text('What\'s the migration called?',
+            required: true
+        ));
 
         $this->call(
             'module:make-migration',
@@ -162,11 +170,17 @@ class FuseCommand extends Command
         if ($is_tenant) {
             $path = $disk->path('Fuses/'.$fuse.'/database/migrations/');
 
-            $migration = glob($path.now()->format('Y_m_d_Hi').'*_'.$migration.'.php')[0];
+            $migration = glob(
+                $path.now()->format('Y_m_d_Hi').'*_'.$migration.'.php'
+            )[0];
 
             $disk->move(
                 str_replace($disk->path(''), '', $migration),
-                str_replace($disk->path(''), '', $path.'tenant/'.basename($migration)),
+                str_replace(
+                    $disk->path(''),
+                    '',
+                    $path.'tenant/'.basename($migration)
+                ),
             );
         }
 
