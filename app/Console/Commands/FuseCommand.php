@@ -184,7 +184,9 @@ class FuseCommand extends Command
             );
         }
 
-        info('Migration `'.$migration.'` created successfully for `'.$fuse.'`.');
+        info(
+            'Migration `'.$migration.'` created successfully for `'.$fuse.'`.'
+        );
     }
 
     private function make_page()
@@ -208,7 +210,10 @@ class FuseCommand extends Command
             default     => 'NEVER ANSWERED',
         };
 
-        info('Page `'.$this->getFeature().'/'.$this->getView().'` created successfully for `'.$this->getFuse().'`.');
+        info(
+            'Page `'.$this->getFeature().'/'.$this->getView()
+                .'` created successfully for `'.$this->getFuse().'`.'
+        );
     }
 
     private function make_table()
@@ -240,10 +245,13 @@ class FuseCommand extends Command
 
         $this->generateFile(
             'page-form-'.$type.'.stub',
-            'resources/views/livewire/'.$feature.'/'.$this->getView().'.blade.php',
+            'resources/views/livewire/'.$feature.'/'.$this->getView()
+                .'.blade.php',
             [
                 'feature'   => $feature,
-                'form'      => Str::contains($form, '/') ? explode('/', $form)[1] : $form,
+                'form'      => Str::contains($form, '/')
+                    ? explode('/', $form)[1]
+                    : $form,
                 'model'     => $model,
                 'namespace' => Str::replace('/', '\\', $form),
             ]
@@ -257,10 +265,15 @@ class FuseCommand extends Command
 
         $this->generateFile(
             'page-list.stub',
-            'resources/views/livewire/'.$feature.'/'.$this->getView().'.blade.php',
+            'resources/views/livewire/'.$feature.'/'.$this->getView()
+                .'.blade.php',
             [
                 'feature' => $feature,
-                'table'   => Str::of($table)->lower()->replace('/', '.')->toString(),
+                'table'   => Str
+                    ::of($table)
+                    ->lower()
+                    ->replace('/', '.')
+                    ->toString(),
             ]
         );
     }
@@ -271,14 +284,17 @@ class FuseCommand extends Command
         $model   = $this->getModel();
 
         if (!$model) {
-            error('Run `php artisan jb` again to make the model first before making this page.');
+            error(
+                'Run `php artisan jb` again to make the model first before making this page.'
+            );
 
             return Command::FAILURE;
         }
 
         $this->generateFile(
             'page-view.stub',
-            'resources/views/livewire/'.$feature.'/'.$this->getView().'.blade.php',
+            'resources/views/livewire/'.$feature.'/'.$this->getView()
+                .'.blade.php',
             [
                 'feature' => $feature,
                 'model'   => $model,
@@ -287,7 +303,11 @@ class FuseCommand extends Command
     }
 
     // Helpers
-    private function generateFile(string $stub, string $target, array $replacements = [])
+    private function generateFile(
+        string $stub,
+        string $target,
+        array $replacements = []
+    )
     {
         $fuse          = $this->getFuse();
         $base_replacements = array_merge(
