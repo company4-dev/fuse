@@ -44,7 +44,10 @@ class ComposerPostUpdateCommand extends Command
 
         // Copy Pint
         foreach ($fuses as $fuse) {
-            $disk->copy('pint.json', 'Fuses/'.$fuse->getStudlyName().'/pint.json');
+            $disk->copy(
+                'pint.json',
+                'Fuses/'.$fuse->getStudlyName().'/pint.json'
+            );
         }
     }
 }
