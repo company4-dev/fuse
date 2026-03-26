@@ -15,20 +15,20 @@
             @csrf
 
             <flux:input
-                name="password"
-                :label="__('Password')"
-                type="password"
-                required
                 autocomplete="current-password"
+                :label="__('Password')"
+                name="password"
                 :placeholder="__('Password')"
+                required
+                type="password"
                 viewable
             />
 
             <flux:button
-                variant="primary"
-                type="submit"
                 class="w-full"
                 data-test="confirm-password-button"
+                type="submit"
+                variant="primary"
             >
                 {{ __('Confirm') }}
             </flux:button>
