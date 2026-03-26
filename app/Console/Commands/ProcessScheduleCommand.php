@@ -66,9 +66,13 @@ class ProcessScheduleCommand extends Command
                     ->get();
 
                 if ($schedules->isNotEmpty()) {
-                    $this->info(' 1.2. Processing '.number_format($schedules->count()).' schedules.');
+                    $this->info(
+                        ' 1.2. Processing '.number_format($schedules->count()).' schedules.'
+                    );
 
-                    $progress = $this->output->createProgressBar($schedules->count());
+                    $progress = $this
+                        ->output
+                        ->createProgressBar($schedules->count());
 
                     $progress->start();
 
@@ -125,7 +129,9 @@ class ProcessScheduleCommand extends Command
                     ->get();
 
                 if ($dates->isNotEmpty()) {
-                    $this->info(' 2.2. Processing '.number_format($dates->count()).' schedules.');
+                    $this->info(
+                        ' 2.2. Processing '.number_format($dates->count()).' schedules.'
+                    );
 
                     $progress = $this->output->createProgressBar($dates->count());
 
