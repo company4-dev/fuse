@@ -7,7 +7,11 @@
 
         <x-auth-session-status class="text-center" :status="session('status')" />
 
-        <form method="POST" action="{{ route('password.confirm.store') }}" class="flex flex-col gap-6">
+        <form
+            action="{{ route('password.confirm.store') }}"
+            class="flex flex-col gap-6"
+            method="POST"
+        >
             @csrf
 
             <flux:input
