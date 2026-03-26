@@ -133,7 +133,9 @@ class ProcessScheduleCommand extends Command
                         ' 2.2. Processing '.number_format($dates->count()).' schedules.'
                     );
 
-                    $progress = $this->output->createProgressBar($dates->count());
+                    $progress = $this
+                        ->output
+                        ->createProgressBar($dates->count());
 
                     $progress->start();
 

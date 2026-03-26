@@ -7,7 +7,11 @@ use Illuminate\Support\Facades\Auth;
 
 class Activity
 {
-    public static function log(string $message, ?Model $model = null, ?array $properties = null)
+    public static function log(
+        string $message,
+        ?Model $model = null,
+        ?array $properties = null
+    )
     {
         $activity = activity()->causedBy(Auth::user() ?? Cache::user(1));
 

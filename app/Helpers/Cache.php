@@ -28,7 +28,10 @@ class Cache
         return self::$cache_keys;
     }
 
-    public static function attribute(callable $get_callback, ?callable $set_callback = null): Attribute
+    public static function attribute(
+        callable $get_callback,
+        ?callable $set_callback = null
+    ): Attribute
     {
         $attribute  = Str::snake(trace(3)[2]['function']);
         $id         = null;
@@ -42,7 +45,10 @@ class Cache
             'attributes',
             $model->getRawOriginal('id')
                 .':'.$attribute
-                .':'.($model->getOriginal('updated_at')?->timestamp ?? $reflection->getStartLine())
+                .':'.(
+                    $model->getOriginal('updated_at')?->timestamp
+                        ?? $reflection->getStartLine()
+                )
         );
 
         $originals = $model->getRawOriginal();
