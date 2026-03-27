@@ -47,7 +47,7 @@ trait BaseInputComponent
             }
 
             foreach ($field as $attribute => $value) {
-                if (in_array($attribute, $skips)) {
+                if (in_array($attribute, $skips, true)) {
                     $this->$attribute = $value;
                 } elseif (method_exists(self::class, 'validate_attribute_'.$attribute)) {
                     $this->$attribute = $this->{'validate_attribute_'.$attribute}($field, $value);
@@ -373,7 +373,7 @@ trait BaseInputComponent
                 $test = explode('.', $test)[0];
             }
 
-            if (!in_array($test, $supported_keys)) {
+            if (!in_array($test, $supported_keys, true)) {
                 throw new Exception(___('errors.exceptions.components.form.invalid-wire-attribute', [$test, $field['label']]));
             }
 

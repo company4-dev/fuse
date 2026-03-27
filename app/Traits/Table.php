@@ -20,7 +20,7 @@ trait Table
 
             $view = explode('.', $action['route'])[1];
 
-            if (in_array($view, ['edit', 'view'])) {
+            if (in_array($view, ['edit', 'view'], true)) {
                 $action['id'] = fn ($model) => $model->id;
             }
 

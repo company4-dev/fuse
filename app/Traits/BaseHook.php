@@ -25,14 +25,10 @@ trait BaseHook
             $class = 'Fuses\\'.$fuse->getName().'\\Hooks\\'.$hook->name;
 
             if (class_exists($class)) {
-                if ($include_fuse) {
-                    $data[$slug] = [
-                        'data'     => $class::run($data, $fuse),
-                        'fuse' => $fuse,
-                    ];
-                } else {
-                    $data[$slug] = $class::run($data, $fuse);
-                }
+                $data[$slug] = $include_fuse ? [
+                    'data'     => $class::run($data, $fuse),
+                    'fuse' => $fuse,
+                ] : $class::run($data, $fuse);
             }
         });
 

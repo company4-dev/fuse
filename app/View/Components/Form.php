@@ -32,7 +32,7 @@ class Form extends Component
 
         $this->form  = $form;
         $this->table = $table;
-        $this->type  = in_array($type, $accepted_types)
+        $this->type  = in_array($type, $accepted_types, true)
             ? $type
             : throw new Exception(___(
                 'errors.exceptions.components.form.invalid-type',
@@ -189,7 +189,7 @@ class Form extends Component
         }
 
         if ($field['placeholder'] === null) {
-            $field['placeholder'] = in_array($type, ['date', 'select']) ? 'dictionary.select...' : $field['label'];
+            $field['placeholder'] = in_array($type, ['date', 'select'], true) ? 'dictionary.select...' : $field['label'];
         }
 
         $processed_field = [

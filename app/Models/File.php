@@ -97,7 +97,7 @@ class File extends Model
     public function image_url(string $size = 'thumb'): ?string
     {
         if ($this->is_image) {
-            if (!in_array($size, ['original', 'large', 'medium', 'thumb'])) {
+            if (!in_array($size, ['original', 'large', 'medium', 'thumb'], true)) {
                 $size = 'thumb';
             }
 

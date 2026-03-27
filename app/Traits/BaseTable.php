@@ -42,7 +42,7 @@ trait BaseTable
                     $view = explode('.', $view);
                     $view = $view[count($view) - 1];
 
-                    if (in_array($view, ['edit', 'view']) || $action['type'] === 'view') {
+                    if (in_array($view, ['edit', 'view'], true) || $action['type'] === 'view') {
                         $action['id'] ??= $model->id;
                     }
                 }
@@ -159,7 +159,7 @@ trait BaseTable
         $body      = array_slice($lines, $start, $end - $start);
         $body      = trim(implode('', $body));
 
-        return !in_array($body, ['return [];', 'return null;']);
+        return !in_array($body, ['return [];', 'return null;'], true);
     }
 
     abstract protected function actions($model): ?array;

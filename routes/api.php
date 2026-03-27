@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\PlatformsController;
 use App\Http\Middleware\ValidateApiKey;
 use Illuminate\Support\Facades\Route;
 

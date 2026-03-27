@@ -16,7 +16,7 @@ class Conversions
     public static function replace_placeholders(string $string, array $data, string $open = '{{', string $close = '}}')
     {
         foreach ($data as $key => $value) {
-            if (!in_array(gettype($value), ['array', 'object'])) {
+            if (!in_array(gettype($value), ['array', 'object'], true)) {
                 $string = preg_replace('/'.$open.$key.$close.'/i', $value, $string);
             }
         }

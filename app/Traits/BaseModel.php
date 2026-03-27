@@ -254,7 +254,7 @@ trait BaseModel
             return $query->get();
         }
 
-        if (!in_array($order, ['asc', 'desc'])) {
+        if (!in_array($order, ['asc', 'desc'], true)) {
             $order = 'asc';
         }
 
@@ -275,7 +275,7 @@ trait BaseModel
             return $query;
         }
 
-        if (!in_array($order, ['asc', 'desc'])) {
+        if (!in_array($order, ['asc', 'desc'], true)) {
             $order = 'asc';
         }
 

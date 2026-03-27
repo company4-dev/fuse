@@ -28,7 +28,7 @@ class Table extends Component
         }
 
         $namespace = implode('\\', array_map(
-            fn ($folder) => Str::studly($folder),
+            Str::studly(...),
             explode('.', $table)
         ));
 
