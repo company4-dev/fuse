@@ -174,7 +174,11 @@ class Cache
         }
 
         foreach ($attributes as $attribute) {
-            [$model, $key, $id] = self::normaliseKey($model, 'attributes', $id.':'.$attribute.'*');
+            [$model, $key, $id] = self::normaliseKey(
+                $model,
+                'attributes',
+                $id.':'.$attribute.'*'
+            );
             $keys               = self::findAll($model, $key, $id);
 
             foreach (array_keys($keys) as $formatted_key) {
