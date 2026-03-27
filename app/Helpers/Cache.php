@@ -90,7 +90,11 @@ class Cache
         $formatted_key = self::getKey($model, $key, $id);
         $keys          = [];
 
-        [$model, $key, $id] = self::normaliseKey($model, $key ?? '*', $id ?? '*');
+        [$model, $key, $id] = self::normaliseKey(
+            $model,
+            $key ?? '*',
+            $id ?? '*'
+        );
 
         if (self::exists($model, $key, $id)) {
             $keys[] = $formatted_key;
