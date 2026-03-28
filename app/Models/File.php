@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Company4\FileVault\Facades\FileVault;
 use App\Helpers\Conversions;
 use App\Helpers\Storage;
 use App\Observers\FileObserver;
 use App\Traits\BaseModel;
+use Company4\FileVault\Facades\FileVault;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;

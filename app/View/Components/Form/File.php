@@ -2,10 +2,10 @@
 
 namespace App\View\Components\Form;
 
-use Closure;
 use App\Helpers\Conversions;
 use App\Helpers\Formatters;
 use App\Traits\BaseInputComponent;
+use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Number;
 use Illuminate\View\Component;

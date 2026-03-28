@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Exception;
 use App\Helpers\Log;
 use App\Observers\SettingObserver;
 use App\Traits\BaseModel;
+use Exception;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;

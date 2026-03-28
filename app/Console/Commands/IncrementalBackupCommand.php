@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Company4\Incrementor\Incrementor;
 use App\Traits\BaseCommand;
+use Company4\Incrementor\Incrementor;
 use Illuminate\Console\Command;
 
 class IncrementalBackupCommand extends Command

@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
-use App\Helpers\Log;
 use App\Helpers\Hooks;
+use App\Helpers\Log;
 use App\Models\ScheduleDate;
 use App\Models\Tenant;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -28,7 +28,7 @@ class ProcessScheduleDates implements ShouldQueue
      */
     public function handle(): void
     {
-        $fuse  = null;
+        $fuse      = null;
         $schedule  = $this->date->schedule;
         $today     = today();
         $yesterday = $today->subDay();

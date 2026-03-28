@@ -11,8 +11,7 @@ class Activity
         string $message,
         ?Model $model = null,
         ?array $properties = null
-    )
-    {
+    ) {
         $activity = activity()->causedBy(Auth::user() ?? Cache::user(1));
 
         if ($properties) {

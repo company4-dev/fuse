@@ -2,8 +2,8 @@
 
 namespace App\View\Components;
 
-use Closure;
 use App\Enums\Components\Callout\Variant as CalloutVariant;
+use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 

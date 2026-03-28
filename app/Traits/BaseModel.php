@@ -2,11 +2,11 @@
 
 namespace App\Traits;
 
-use Exception;
 use App\Helpers\Activity;
 use App\Helpers\Cache;
 use App\Helpers\Collection;
 use App\Helpers\Dates;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;

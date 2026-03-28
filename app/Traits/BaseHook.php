@@ -15,7 +15,7 @@ trait BaseHook
     private static function getFuseData(FuseHook $hook, $data = null, bool $include_fuse = true): array
     {
         $data      = [];
-        $fuses = Fuses::active();
+        $fuses     = Fuses::active();
 
         if (!$fuses) {
             return $data;
@@ -26,7 +26,7 @@ trait BaseHook
 
             if (class_exists($class)) {
                 $data[$slug] = $include_fuse ? [
-                    'data'     => $class::run($data, $fuse),
+                    'data' => $class::run($data, $fuse),
                     'fuse' => $fuse,
                 ] : $class::run($data, $fuse);
             }

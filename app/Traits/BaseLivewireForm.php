@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-use Closure;
 use App\Helpers\Log;
 use App\Helpers\Schedule;
 use App\Hooks\Form as FormHook;
@@ -10,6 +9,7 @@ use App\Hooks\Form as HooksForm;
 use App\Rules\IsValidEmail;
 use App\Rules\IsValidPassword;
 use App\View\Components\Form;
+use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;

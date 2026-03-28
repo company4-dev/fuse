@@ -2,8 +2,8 @@
 
 namespace App\Helpers;
 
-use Exception;
 use App\Models\Setting;
+use Exception;
 
 class Settings
 {

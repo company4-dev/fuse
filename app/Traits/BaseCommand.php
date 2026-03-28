@@ -13,7 +13,7 @@ trait BaseCommand
 {
     private array $disks      = [];
     private ?string $model    = null;
-    private ?string $fuse = null;
+    private ?string $fuse     = null;
 
     private function getDisk(string $disk = 'root')
     {
@@ -69,7 +69,7 @@ trait BaseCommand
     protected function makeModel()
     {
         $model    = null;
-        $fuse = $this->getFuse();
+        $fuse     = $this->getFuse();
 
         $model = Str::studly(text('What\'s the model called?'));
 

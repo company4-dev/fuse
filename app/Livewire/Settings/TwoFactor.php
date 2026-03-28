@@ -29,8 +29,7 @@ class TwoFactor extends Component
     #[Locked]
     public string $manualSetupKey = '';
 
-    public bool $showModal = false;
-
+    public bool $showModal            = false;
     public bool $showVerificationStep = false;
 
     #[Validate('required|string|size:6', onUpdate: false)]
@@ -47,7 +46,7 @@ class TwoFactor extends Component
             $disableTwoFactorAuthentication(auth()->user());
         }
 
-        $this->twoFactorEnabled = auth()->user()->hasEnabledTwoFactorAuthentication();
+        $this->twoFactorEnabled     = auth()->user()->hasEnabledTwoFactorAuthentication();
         $this->requiresConfirmation = Features::optionEnabled(Features::twoFactorAuthentication(), 'confirm');
     }
 
@@ -58,7 +57,7 @@ class TwoFactor extends Component
     {
         $enableTwoFactorAuthentication(auth()->user());
 
-        if (! $this->requiresConfirmation) {
+        if (!$this->requiresConfirmation) {
             $this->twoFactorEnabled = auth()->user()->hasEnabledTwoFactorAuthentication();
         }
 
@@ -75,7 +74,7 @@ class TwoFactor extends Component
         $user = auth()->user();
 
         try {
-            $this->qrCodeSvg = $user?->twoFactorQrCodeSvg();
+            $this->qrCodeSvg      = $user?->twoFactorQrCodeSvg();
             $this->manualSetupKey = decrypt($user->two_factor_secret);
         } catch (Exception) {
             $this->addError('setupData', 'Failed to fetch setup data.');
@@ -149,7 +148,7 @@ class TwoFactor extends Component
 
         $this->resetErrorBag();
 
-        if (! $this->requiresConfirmation) {
+        if (!$this->requiresConfirmation) {
             $this->twoFactorEnabled = auth()->user()->hasEnabledTwoFactorAuthentication();
         }
     }
@@ -161,24 +160,24 @@ class TwoFactor extends Component
     {
         if ($this->twoFactorEnabled) {
             return [
-                'title' => __('Two-factor authentication enabled'),
+                'title'       => __('Two-factor authentication enabled'),
                 'description' => __('Two-factor authentication is now enabled. Scan the QR code or enter the setup key in your authenticator app.'),
-                'buttonText' => __('Close'),
+                'buttonText'  => __('Close'),
             ];
         }
 
         if ($this->showVerificationStep) {
             return [
-                'title' => __('Verify authentication code'),
+                'title'       => __('Verify authentication code'),
                 'description' => __('Enter the 6-digit code from your authenticator app.'),
-                'buttonText' => __('Continue'),
+                'buttonText'  => __('Continue'),
             ];
         }
 
         return [
-            'title' => __('Enable two-factor authentication'),
+            'title'       => __('Enable two-factor authentication'),
             'description' => __('To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app.'),
-            'buttonText' => __('Continue'),
+            'buttonText'  => __('Continue'),
         ];
     }
 }

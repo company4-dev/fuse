@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use Exception;
 use App\Helpers\Formatters;
+use Exception;
 use Illuminate\Support\Str;
 
 trait BaseInputComponent

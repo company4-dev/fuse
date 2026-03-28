@@ -2,8 +2,8 @@
 
 namespace App\Hooks;
 
-use App\Enums\Permissions as CorePermissions;
 use App\Enums\FuseHook;
+use App\Enums\Permissions as CorePermissions;
 use App\Enums\TenantDisplay;
 use App\Helpers\Tenants;
 use App\Traits\BaseHook;

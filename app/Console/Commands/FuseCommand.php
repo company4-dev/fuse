@@ -147,7 +147,7 @@ class FuseCommand extends Command
         $disk      = $this->getDisk();
         $is_tenant = null;
         $migration = null;
-        $fuse  = $this->getFuse();
+        $fuse      = $this->getFuse();
 
         $is_tenant = select(
             label: 'Is this for a tenant migration?',
@@ -155,9 +155,11 @@ class FuseCommand extends Command
         );
 
         $migration = Str::snake(
-            text('What\'s the migration called?',
-            required: true
-        ));
+            text(
+                'What\'s the migration called?',
+                required: true
+            )
+        );
 
         $this->call(
             'module:make-migration',
@@ -218,7 +220,7 @@ class FuseCommand extends Command
 
     private function make_table()
     {
-        $fuse = $this->getFuse();
+        $fuse     = $this->getFuse();
         $table    = text('What\'s the table called?');
 
         $model = $this->getModel();
@@ -248,8 +250,8 @@ class FuseCommand extends Command
             'resources/views/livewire/'.$feature.'/'.$this->getView()
                 .'.blade.php',
             [
-                'feature'   => $feature,
-                'form'      => Str::contains($form, '/')
+                'feature' => $feature,
+                'form'    => Str::contains($form, '/')
                     ? explode('/', $form)[1]
                     : $form,
                 'model'     => $model,
@@ -307,9 +309,8 @@ class FuseCommand extends Command
         string $stub,
         string $target,
         array $replacements = []
-    )
-    {
-        $fuse          = $this->getFuse();
+    ) {
+        $fuse              = $this->getFuse();
         $base_replacements = array_merge(
             [
                 'fuse' => $fuse,

@@ -2,8 +2,8 @@
 
 namespace App\Helpers;
 
-use Carbon\Carbon;
 use App\Hooks\Icons as HooksIcons;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class Icons

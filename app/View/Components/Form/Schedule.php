@@ -2,9 +2,9 @@
 
 namespace App\View\Components\Form;
 
-use Closure;
 use App\Helpers\Schedule as ScheduleHelper;
 use App\Traits\BaseInputComponent;
+use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use InvalidArgumentException;

@@ -2,11 +2,11 @@
 
 namespace App\Helpers;
 
+use App\Models\User;
 use Closure;
 use DateInterval;
 use DateTimeInterface;
 use Exception;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Cache as LaravelCache;
 use Illuminate\Support\Facades\Schema;
@@ -31,8 +31,7 @@ class Cache
     public static function attribute(
         callable $get_callback,
         ?callable $set_callback = null
-    ): Attribute
-    {
+    ): Attribute {
         $attribute  = Str::snake(trace(3)[2]['function']);
         $id         = null;
         $model      = null;

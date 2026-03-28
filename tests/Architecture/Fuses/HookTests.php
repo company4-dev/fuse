@@ -1,8 +1,8 @@
 <?php
 
 use App\Helpers\Testing;
-use App\Traits\BaseHookForm;
 use App\Traits\BaseFuseHook;
+use App\Traits\BaseHookForm;
 
 arch()
     ->expect(Testing::wildcard_to_array('Fuses\*\Hooks'))
