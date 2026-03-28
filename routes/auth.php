@@ -23,12 +23,12 @@ Route::middleware(array_merge(['guest'], $tenancy_middleware))->group(function (
 });
 
 Route::middleware(array_merge(['auth'], $tenancy_middleware))->group(function () {
-    Route::livewire('verify-email', 'auth.verify-email')
-        ->name('verification.notice');
+    // Route::livewire('verify-email', 'auth.verify-email')
+    //     ->name('verification.notice');
 
-    Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
-        ->middleware(['signed', 'throttle:6,1'])
-        ->name('verification.verify');
+    // Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
+    //     ->middleware(['signed', 'throttle:6,1'])
+    //     ->name('verification.verify');
 
     Route::livewire('confirm-password', 'auth.confirm-password')
         ->name('password.confirm');
