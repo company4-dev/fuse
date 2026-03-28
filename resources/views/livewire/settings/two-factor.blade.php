@@ -3,7 +3,7 @@
 
     <flux:heading class="sr-only">{{ __('Two-factor authentication settings') }}</flux:heading>
 
-    {{-- <x-settings.layout
+    <x-laravel-defaults.settings.layout
         :heading="__('Two-factor authentication')"
         :subheading="__('Manage your two-factor authentication settings')"
     >
@@ -52,7 +52,7 @@
                 </div>
             @endif
         </div>
-    </x-settings.layout> --}}
+    </x-laravel-defaults.settings.layout>
 
     <flux:modal
         name="two-factor-setup-modal"

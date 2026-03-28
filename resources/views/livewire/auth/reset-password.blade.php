@@ -55,10 +55,10 @@ new #[Layout('layouts::auth', ['title' => 'Reset password'])] class extends Live
 
 <x-layouts::auth :title="__('Reset password')">
     <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Reset password')" :description="__('Please enter your new password below')" />
+        <x-laravel-defaults.auth-header :title="__('Reset password')" :description="__('Please enter your new password below')" />
 
         <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+        <x-laravel-defaults.auth-session-status class="text-center" :status="session('status')" />
 
         <form wire:submit.prevent="resetPassword" class="flex flex-col gap-6">
             @csrf
