@@ -33,7 +33,9 @@
             <div x-show="showRecoveryInput">
                 <x-auth-header
                     :title="__('Recovery code')"
-                    :description="__('Please confirm access to your account by entering one of your emergency recovery codes.')"
+                    :description="__(
+                        'Please confirm access to your account by entering one of your emergency recovery codes.'
+                    )"
                 />
             </div>
 
