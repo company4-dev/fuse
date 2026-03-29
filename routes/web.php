@@ -27,16 +27,16 @@ if ($tenancy_enabled) {
                 ::get('/', fn () => view('home'));
         });
     }
-} else {
+} elseif (view()->exists('home')) {
     Route::get('/', fn () => view('home'));
+} else {
+    // Global Routes
+    Route
+        ::middleware(array_merge(['guest'], $tenancy_middleware))
+        ->group(function () {
+            Route::redirect('/', '/login');
+        });
 }
-
-// Global Routes
-Route
-    ::middleware(array_merge(['guest'], $tenancy_middleware))
-    ->group(function () {
-        Route::redirect('/', '/login');
-    });
 
 Route
     ::middleware(array_merge(['auth'], $tenancy_middleware))
