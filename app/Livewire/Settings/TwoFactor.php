@@ -161,8 +161,10 @@ class TwoFactor extends Component
         if ($this->twoFactorEnabled) {
             return [
                 'title'       => __('Two-factor authentication enabled'),
-                'description' => __('Two-factor authentication is now enabled. Scan the QR code or enter the setup key in your authenticator app.'),
-                'buttonText'  => __('Close'),
+                'description' => __(
+                    'Two-factor authentication is now enabled. Scan the QR code or enter the setup key in your authenticator app.'
+                ),
+                'buttonText' => __('Close'),
             ];
         }
 
@@ -176,8 +178,10 @@ class TwoFactor extends Component
 
         return [
             'title'       => __('Enable two-factor authentication'),
-            'description' => __('To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app.'),
-            'buttonText'  => __('Continue'),
+            'description' => __(
+                'To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app.'
+            ),
+            'buttonText' => __('Continue'),
         ];
     }
 }
