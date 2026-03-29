@@ -8,9 +8,8 @@ class Schedule
 {
     public static function fields(array $field): array
     {
-        $days_of_month = [];
-        $days_of_week  = Translations::daysOfWeek();
-        // $days_of_week[8] = 'dictionary.day';  // Not sure why this was in the original code. Keeping for compatibility reasons
+        $days_of_month    = [];
+        $days_of_week     = Translations::daysOfWeek();
         $days_of_week[9]  = 'dictionary.weekday';
         $days_of_week[10] = 'phrases.weekend-day';
         $months           = Translations::months();

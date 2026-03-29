@@ -83,7 +83,12 @@ class Dates
         ];
     }
 
-    public static function dates_from_range($start_date, $end_date = null, $start_inclusive = true, $end_inclusive = true)
+    public static function dates_from_range(
+        $start_date,
+        $end_date = null,
+        $start_inclusive = true,
+        $end_inclusive = true
+    )
     {
         $dates      = [];
         $length     = null;
@@ -113,8 +118,8 @@ class Dates
     public static function datetime_formats()
     {
         return [
-            1 => '['.___('phrases.date-format').'] ['.___('phrases.time-format').'] ('.date(config('settings.formats.date').' '
-                .config('settings.formats.time')).')',
+            1 => '['.___('phrases.date-format').'] ['.___('phrases.time-format').'] ('
+                .date(config('settings.formats.date').' '.config('settings.formats.time')).')',
             2 => 'ISO 8601 ('.date('c').')',
             3 => 'RFC 2822 ('.date('r').')',
         ];
@@ -211,7 +216,10 @@ class Dates
         }
 
         return date(
-            implode('/', array_filter(explode('/', trim(str_replace(['Y', 'y', '\''], '', config('settings.formats.date')))))),
+            implode(
+                '/',
+                array_filter(explode('/', trim(str_replace(['Y', 'y', '\''], '', config('settings.formats.date')))))
+            ),
             $time
         );
     }
