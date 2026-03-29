@@ -41,7 +41,7 @@
                 </flux:tooltip>
             </flux:navbar>
 
-            <x-laravel-defaults-desktop-user-menu />
+            <x-laravel-defaults.desktop-user-menu />
         </flux:header>
 
         <!-- Mobile Menu -->

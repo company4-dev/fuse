@@ -30,7 +30,7 @@
                 </flux:sidebar.item>
             </flux:sidebar.nav>
 
-            <x-laravel-defaults-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
+            <x-laravel-defaults.desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
