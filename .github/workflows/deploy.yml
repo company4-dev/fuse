@@ -65,9 +65,6 @@ jobs:
             #     npx playwright install-deps
             #     npx playwright install
 
-            - name: Build Assets
-              run: npm run build
-
             # - name: Run Tests
             #   run: >
             #     COVERAGE=$(cat ./storage/app/coverage.txt)
