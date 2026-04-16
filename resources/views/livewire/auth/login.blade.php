@@ -86,7 +86,7 @@ new #[Layout('layouts::auth', ['title' => 'Log In'])] class extends Livewire
 
     <flux:card>
         <flux:heading class="text-center" size="lg">
-            {{ ___('dictionary.login') }} - 29
+            {{ ___('dictionary.login') }} - 30
         </flux:heading>
 
         <x-separator />
