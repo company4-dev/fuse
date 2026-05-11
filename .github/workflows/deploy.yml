@@ -12,6 +12,10 @@ on:
             - dev
             - '2026'
 
+concurrency:
+  group: production-deploy
+  queue: max
+
 jobs:
     ci:
         runs-on: ubuntu-latest
