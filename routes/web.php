@@ -93,6 +93,6 @@ if ($tenancy_enabled) {
         });
 }
 
-// // Auth
+// Auth
 require __DIR__.'/auth.php';
 require __DIR__.'/settings.php';
