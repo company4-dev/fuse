@@ -1,0 +1,145 @@
+name: actions
+
+on:
+    push:
+        branches:
+            - main
+            - dev
+            - '2026'
+            - '2026.5'
+    pull_request:
+        branches:
+            - main
+            - dev
+            - '2026'
+            - '2026.5'
+
+concurrency:
+  group: production-deploy
+  queue: max
+
+jobs:
+    Deploy:
+        runs-on: ubuntu-latest
+        environment: Testing
+        permissions:
+            contents: write
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "24"
+                  cache: "npm"
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.4
+                  tools: composer:v2
+                  coverage: xdebug
+
+            - name: Add Flux Credentials Loaded From ENV
+              run: composer config http-basic.composer.fluxui.dev "${{ secrets.FLUX_USERNAME }}" "${{ secrets.FLUX_LICENSE_KEY }}"
+
+            # - name: Run ESLint
+            #   run: npx eslint --fix
+
+            # - name: Copy Environment File
+            #   run: cp .env.example .env
+
+            # - name: Generate Application Key
+            #   run: php artisan key:generate
+
+            # - name: PHP Coding Standards
+            #   run: >
+            #     PHP_FILES=$(find . -type d \( -path ./vendor -o -path ./node_modules -o -path ./storage -o -path ./public -o -path ./.git -o -path ./resources/views -o -path './Platforms/*' ! -path './bootstrap/cache' ! -path './Platforms/Tenants' ! -path './Platforms/Users' \) -prune -o -type f -name "*.php" -print)
+
+            #     vendor/bin/rector process $PHP_FILES
+
+            #     vendor/bin/pint --parallel $PHP_FILES
+
+            #     vendor/bin/phpstan analyse $PHP_FILES --memory-limit=-1
+
+            #     vendor/bin/phpcs $PHP_FILES
+
+            # - name: Setup Playwright
+            #   run: >
+            #     npx playwright install-deps
+            #     npx playwright install
+
+            # - name: Run Tests
+            #   run: >
+            #     COVERAGE=$(cat ./storage/app/coverage.txt)
+            #     echo "Current coverage target: $COVERAGE"
+            #     php -d memory_limit=-1 ./vendor/bin/pest --coverage --min=$COVERAGE --parallel --stop-on-failure
+
+            #     if [[ $COVERAGE != "100" ]]
+            #     then
+            #         COVERAGE=`php -r "echo $COVERAGE + 0.1;"`
+
+            #         echo $COVERAGE > ./storage/app/coverage.txt
+            #         git add ./storage/app/coverage.txt
+            #     fi
+
+            # - name: Generate Documentation
+            #   run: php artisan laravel-docs:generate
+
+            - name: Set-up Git
+              run: |
+                BRANCH="${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}"
+                git config --global user.email "ci@company4.dev"
+                git config --global user.name "GitHub CI"
+                git fetch origin "$BRANCH"
+                git checkout "$BRANCH"
+
+            - name: Generate changelog
+              id: changelog
+              run: |
+                # Get the last tag
+                LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
+                if [ -z "$LAST_TAG" ]; then
+                    # No previous tags, get all commits
+                    COMMITS=$(git log --pretty=format:"- %s" | head -20)
+                else
+                    # Get commits since last tag
+                    COMMITS=$(git log $LAST_TAG..HEAD --pretty=format:"- %s")
+                fi
+
+                # Store in output, handling multiline
+                echo "commits<<EOF" >> $GITHUB_OUTPUT
+                echo "$COMMITS" >> $GITHUB_OUTPUT
+                echo "EOF" >> $GITHUB_OUTPUT
+
+            - name: Bump composer version
+              id: version
+              run: |
+                CURRENT_VERSION=$(node -p "require('./composer.json').version")
+                NEXT_VERSION=$(node -e "const v = '$CURRENT_VERSION'.split('.'); v[1]++; console.log(v.join('.'))")
+                composer config version $NEXT_VERSION
+                VERSION=$(node -p "require('./composer.json').version")
+                echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+            - name: Create GitHub Release
+              uses: softprops/action-gh-release@v2
+              with:
+                body: ${{ steps.changelog.outputs.commits }}
+                draft: false
+                prerelease: false
+                tag_name: "${{ steps.version.outputs.version }}"
+                target_commitish: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+
+            - name: Commit changes
+              run: |
+                git config user.name "${{ github.actor }}"
+                git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+                git add -f composer.json ./storage/app/coverage.txt public/build/
+                git commit -m "Build" || true
+                git status
+                git stash push -m "leftover" || true
+                git pull --rebase origin ${{ github.ref_name }}
+                git push origin ${{ github.ref_name }}
