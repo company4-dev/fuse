@@ -28,8 +28,8 @@ new class extends Component
 
     public function submit()
     {
-         $me       = Auth::user();
-        $password = '[Name]TheChicken';
+        $me       = Auth::user();
+        $password = 'WireMeUp';
         $tenant   = Tenant::create([
             'name' => $validated['name'],
         ]);

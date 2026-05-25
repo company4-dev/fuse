@@ -9,16 +9,19 @@ use App\Helpers\Cache as CacheHelper;
 use App\Helpers\Icons as IconsHelper;
 use App\Helpers\Log;
 use App\Helpers\Platforms;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Number;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 use Livewire\Livewire;
 use Override;
 use Throwable;
@@ -101,6 +104,7 @@ class AppServiceProvider extends ServiceProvider
         $this->bootBlueprintMacros();
         $this->bootCollectionMacros();
         $this->bootStorageMacros();
+        $this->configureDefaults();
     }
 
     private function bootBlueprintMacros(): void
@@ -299,6 +303,29 @@ class AppServiceProvider extends ServiceProvider
         Storage::macro(
             'tmp_path',
             static fn (): string => sys_get_temp_dir().'/'
+        );
+    }
+
+    /**
+     * Configure default behaviors for production-ready applications.
+     */
+    private function configureDefaults(): void
+    {
+        Date::use(CarbonImmutable::class);
+
+        DB::prohibitDestructiveCommands(
+            app()->isProduction(),
+        );
+
+        Password::defaults(
+            fn (): ?Password => app()->isProduction()
+            ? Password::min(12)
+                ->mixedCase()
+                ->letters()
+                ->numbers()
+                ->symbols()
+                ->uncompromised()
+            : null,
         );
     }
 }

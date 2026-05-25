@@ -41,7 +41,7 @@ return [
         'platforms' => [
             'driver' => 'local',
             'root'   => base_path('/Platforms'),
-            'serve'  => false,
+            'serve'  => true,
             'throw'  => false,
             'report' => false,
         ],
@@ -49,7 +49,7 @@ return [
         'public' => [
             'driver'     => 'local',
             'root'       => storage_path('app/public'),
-            'url'        => env('APP_URL').'/storage',
+            'url'        => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
             'throw'      => false,
             'report'     => false,
@@ -57,8 +57,8 @@ return [
 
         'root' => [
             'driver' => 'local',
-            'root'   => base_path('/'),
-            'serve'  => false,
+            'root'   => base_path(''),
+            'serve'  => true,
             'throw'  => false,
             'report' => false,
         ],

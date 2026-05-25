@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Sentry Laravel SDK configuration file.
  *
@@ -11,15 +9,14 @@ return [
     // @see https://docs.sentry.io/product/sentry-basics/dsn-explainer/
     'dsn' => env(
         'SENTRY_LARAVEL_DSN',
-        'https://876a2968f71517a80698af26eb67bdd2@o4509722450198528.ingest.de.sentry.io/4509882539966544',
+        // 'https://2630c3f39f7ba25060bec3644025876e@o4508263303479296.ingest.de.sentry.io/4510755400515664',
     ),
 
     // @see https://spotlightjs.com/
     // 'spotlight' => env('SENTRY_SPOTLIGHT', false),
 
     // @see: https://docs.sentry.io/platforms/php/guides/laravel/configuration/options/#logger
-    // By default this will log to `storage_path('logs/sentry.log')`
-    // 'logger' => Sentry\Logger\DebugFileLogger::class,
+    // 'logger' => Sentry\Logger\DebugFileLogger::class, // By default this will log to `storage_path('logs/sentry.log')`
 
     // The release version of your application
     // Example with dynamic git hash: trim(exec('git --git-dir ' . base_path('.git') . ' log --pretty="%h" -n1 HEAD'))
@@ -35,9 +32,7 @@ return [
     'traces_sample_rate' => env('SENTRY_TRACES_SAMPLE_RATE') === null ? 1.0 : (float) env('SENTRY_TRACES_SAMPLE_RATE'),
 
     // @see: https://docs.sentry.io/platforms/php/guides/laravel/configuration/options/#profiles-sample-rate
-    'profiles_sample_rate' => env('SENTRY_PROFILES_SAMPLE_RATE') === null
-        ? null
-        : (float) env('SENTRY_PROFILES_SAMPLE_RATE'),
+    'profiles_sample_rate' => env('SENTRY_PROFILES_SAMPLE_RATE') === null ? null : (float) env('SENTRY_PROFILES_SAMPLE_RATE'),
 
     // @see: https://docs.sentry.io/platforms/php/guides/laravel/configuration/options/#enable-logs
     'enable_logs' => env('SENTRY_ENABLE_LOGS', false),
@@ -129,11 +124,11 @@ return [
         'missing_routes' => env('SENTRY_TRACE_MISSING_ROUTES_ENABLED', false),
 
         /**
-         * Configures if the performance trace should continue after the response has been sent to the user until the
-         * application terminates.
+         * Configures if the performance trace should continue after the response has been sent to the user until the application
+         * terminates.
          *
-         * This is required to capture any spans that are created after the response has been sent like queue jobs
-         * dispatched using `dispatch(...)->afterResponse()` for example
+         * This is required to capture any spans that are created after the response has been sent like queue jobs dispatched using
+         * `dispatch(...)->afterResponse()` for example
          */
         'continue_after_response' => env('SENTRY_TRACE_CONTINUE_AFTER_RESPONSE', true),
 

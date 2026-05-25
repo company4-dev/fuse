@@ -45,4 +45,12 @@ class Files
 
         return (object) $file;
     }
+
+    /**
+     * Returns the correct path depending on calling function.
+     */
+    public static function tmp_path(): string
+    {
+        return sys_get_temp_dir().'/';
+    }
 }
