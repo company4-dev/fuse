@@ -71,7 +71,6 @@ return [
     'first'   => 'First',
     'forced'  => 'Forced',
     'fourth'  => 'Fourth',
-    'fusebox' => 'Fusebox',
 
     // H
     'home' => 'Home',
@@ -85,6 +84,9 @@ return [
     'ingredients'  => 'Ingredients',
     'installation' => 'Installation',
     'interval'     => 'Interval',
+
+    // J
+    'jellybean' => 'Jellybean',
 
     // L
     'last'      => 'Last',
