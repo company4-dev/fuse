@@ -1,0 +1,67 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Extensions\Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+
+new class extends Component
+{
+    public string $password = '';
+
+    /**
+     * Confirm the current user's password.
+     */
+    public function confirmPassword(): void
+    {
+        $this->validate([
+            'password' => ['required', 'string'],
+        ]);
+
+        if (!Auth::guard('web')->validate([
+            'email'    => Auth::user()->email,
+            'password' => $this->password,
+        ])) {
+            throw ValidationException::withMessages([
+                'password' => ___('errors.auth.password'),
+            ]);
+        }
+
+        session(['auth.password_confirmed_at' => time()]);
+
+        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+    }
+
+    public function render()
+    {
+        return $this->view()->layout('layouts::auth');
+    }
+}; ?>
+
+<div class="flex flex-col gap-6">
+    <x-laravel-defaults.auth-header
+        :title="___('phrases.confirm-password')"
+        :description="___('auth.confirm-password')"
+    />
+
+    <!-- Session Status -->
+    <x-laravel-defaults.auth-session-status class="text-center" :status="session('status')" />
+
+    <form wire:submit="confirmPassword" class="flex flex-col gap-6">
+        <!-- Password -->
+        <flux:input
+            wire:model="password"
+            :label="___('dictionary.password')"
+            type="password"
+            required
+            autocomplete="new-password"
+            :placeholder="___('dictionary.password')"
+            viewable
+        />
+
+        <flux:button variant="primary" type="submit" class="w-full">{{ ___('dictionary.confirm') }}</flux:button>
+    </form>
+
+    // Replace with Form component
+</div>

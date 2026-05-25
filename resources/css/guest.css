@@ -1,0 +1,20 @@
+@import './base.css';
+
+
+body {
+    height: 100vh;
+}
+
+.container {
+    @apply mx-auto;
+}
+
+footer nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+}

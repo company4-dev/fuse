@@ -1,0 +1,47 @@
+#!/bin/bash
+COVERAGE_FILE="coverage.txt"
+LOG_PATH=../../storage/logs/git-hooks.log
+PLATFORM="$(basename $(pwd))"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+PHP_FILES=$(git diff --name-only --diff-filter=d --invert-match @{push} -- '*.php')
+
+if [ -f $COVERAGE_FILE ]; then
+    COVERAGE=$(cat $COVERAGE_FILE)
+else
+    COVERAGE=0
+fi
+
+open_vs_code() {
+    echo "" &> /dev/null
+    if code $LOG_PATH &> /dev/null; then
+        echo "" &> /dev/null
+    else
+        cat $LOG_PATH
+    fi
+    echo -e "[\e[32m$(date +%T)\e[97m] \e[31mOne or More Checks failed. Opened VSCode\e[97m" >> $LOG_PATH
+    exit 1
+}
+
+echo -e "[\e[32m$(date +%T)\e[97m] Starting pre-push" >> $LOG_PATH
+
+echo -e "  [\e[32m$(date +%T)\e[97m] Running Tests..." >> $LOG_PATH
+
+echo -e "    [\e[32m$(date +%T)\e[97m] Coverage target: \e[36m$COVERAGE\e[0m" >> $LOG_PATH
+
+../../vendor/bin/pest --coverage --configuration=$PROJECT_ROOT/phpunit.platform.xml --min=$COVERAGE --parallel --stop-on-failure
+PEST_EXIT_CODE_1=$?
+
+echo -e "    [\e[32m$(date +%T)\e[97m] Type Coverage target: \e[36m$COVERAGE\e[0m" >> $LOG_PATH
+
+../../vendor/bin/pest --type-coverage --configuration=$PROJECT_ROOT/phpunit.platform.xml --min=$COVERAGE --parallel --stop-on-failure >> $LOG_PATH 2>&1
+PEST_EXIT_CODE_2=$?
+
+echo -e "    [\e[32m$(date +%T)\e[97m] Testing Coverage target: \e[36m$COVERAGE\e[0m" >> $LOG_PATH
+
+if [ $PEST_EXIT_CODE_1 -ne 0 ] || [ $PEST_EXIT_CODE_2 -ne 0 ]; then
+    open_vs_code
+fi
+
+echo -e "  [\e[32m$(date +%T)\e[97m] Finished testing..." >> $LOG_PATH
+
+echo -e "[\e[32m$(date +%T)\e[97m] Finished pre-push" >> $LOG_PATH

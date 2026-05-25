@@ -6,13 +6,11 @@ on:
             - main
             - dev
             - '2026'
-            - '2026.5'
     pull_request:
         branches:
             - main
             - dev
             - '2026'
-            - '2026.5'
 
 concurrency:
   group: production-deploy

@@ -1,0 +1,21 @@
+@php
+    $attributes = $unescapedForwardedAttributes ?? $attributes;
+@endphp
+
+@props([
+    'variant' => 'outline',
+])
+
+@php
+    $classes = Flux::classes('shrink-0')
+        ->add(match($variant) {
+            'outline' => '[:where(&)]:size-6',
+            'solid' => '[:where(&)]:size-6',
+            'mini' => '[:where(&)]:size-5',
+            'micro' => '[:where(&)]:size-4',
+        });
+@endphp
+{{-- Your SVG code here: --}}
+<svg {{ $attributes->class($classes) }} data-flux-icon aria-hidden="true" viewBox="0 0 512 512" fill="currentColor">
+    <path style="opacity:0.4" d=""/><path class="fa-primary" d="M480 256C480 132.3 379.7 32 256 32c-8.8 0-16-7.2-16-16s7.2-16 16-16C397.4 0 512 114.6 512 256s-114.6 256-256 256c-8.8 0-16-7.2-16-16s7.2-16 16-16c123.7 0 224-100.3 224-224zM149.4 116c6.6-5.9 16.7-5.3 22.6 1.3s5.3 16.7-1.3 22.6L58.1 240 336 240c8.8 0 16 7.2 16 16s-7.2 16-16 16L58.1 272 170.6 372c6.6 5.9 7.2 16 1.3 22.6s-16 7.2-22.6 1.3L5.4 268C2 264.9 0 260.6 0 256s2-8.9 5.4-12l144-128z"/>
+</svg>

@@ -1,0 +1,42 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    level: 1
+
+    reportUnmatchedIgnoredErrors: true
+    checkDynamicProperties: false
+
+    #checkUnusedViews: true
+    checkOctaneCompatibility: false
+
+    excludePaths:
+        - deploy.php
+
+    ignoreErrors:
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::#'
+        - '#Access to an undefined property .*\\Models\\#'
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder::limited#'
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Collection.*::selectTree#'
+        - '#Call to an undefined method Pest\\PendingCalls\\TestCall::#'
+        - '#Call to an undefined method PHPUnit\\Framework\\TestCase::(get|post|put|patch|delete|actingAs|assertAuthenticated|assertGuest)#'
+        - '#Call to function method_exists\(\) with ''.*\\Models\\.*'' and ''withTrashed'' will always evaluate to true.#'
+        - '#Call to function method_exists\(\) with ''.*\\View\\\\Tables\\.*'' and ''query'' will always evaluate to true.#'
+        - '#Method Platforms\\.*\\View\\Tables\\.*::(actions|columns|query)\(\) is unused.#'
+        - '#Property .* does not exist in model#'
+        - '#to an undefined static method App\\Helpers\\Icons#'
+        - '#to an undefined static method App\\Helpers\\Log#'
+        - '#Undefined variable: \$this#'
+        -
+            message: '#Access to undefined constant static.*::MODEL#'
+            path: app/Base/Table.php
+        -
+            message: '#Call to an undefined static method .*::query#'
+            path: app/Base/Table.php
+        -
+            message: '#newCollection\(\) should return Illuminate\\Database\\Eloquent\\Collection#'
+            path: app/Traits/BaseModel.php
+        -
+            message: '#Undefined variable: \$this#'
+            path: */resources/views/livewire/*

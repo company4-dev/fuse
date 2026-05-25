@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "ganyicz.livewire-sfc-support",
+        "joshhanley.flux-ui",
+        "laravel.vscode-laravel",
+        "streetsidesoftware.code-spell-checker",
+    ],
+}

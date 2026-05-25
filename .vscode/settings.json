@@ -1,0 +1,26 @@
+{
+    "cSpell.words": [
+        "color",
+        "dropzone",
+        "endforeach",
+        "endisdev",
+        "endisland",
+        "endphp",
+        "flyout",
+        "isdev",
+        "isset",
+        "livewire",
+        "Nwidart",
+        "OpsFM",
+        "pawthenticate",
+        "Previewable",
+        "Queueable",
+        "studly"
+    ],
+    "search.exclude": {
+        "bootstrap/cache": true,
+        "node_modules": true,
+        "tests/Coverage": true,
+        "vendor": true
+    },
+}

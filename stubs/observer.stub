@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Base\Observer;
+use {{ namespacedModel }};
+
+class {{ class }} extends Observer
+{
+    public function created({{ model }} ${{ model_snake }}): void
+    {
+        $this->run_created(${{ model_snake }}, ${{ model_snake }}->name);
+    }
+
+    public function deleted({{ model }} ${{ model_snake }}): void
+    {
+        $this->run_deleted(${{ model_snake }}, ${{ model_snake }}->name);
+    }
+
+    public function forceDeleted({{ model }} ${{ model_snake }}): void
+    {
+        $this->run_force_deleted(${{ model_snake }}, ${{ model_snake }}->name);
+    }
+
+    public function restored({{ model }} ${{ model_snake }}): void
+    {
+        $this->run_restored(${{ model_snake }}, ${{ model_snake }}->name);
+    }
+
+    public function updated({{ model }} ${{ model_snake }}): void
+    {
+        $this->run_updated(${{ model_snake }}, ${{ model_snake }}->name);
+    }
+}

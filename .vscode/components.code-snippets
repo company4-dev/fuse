@@ -1,0 +1,90 @@
+{
+    // See https://code.visualstudio.com/docs/editor/userdefinedsnippets for snippet functionality
+    "Alert Component": {
+		"prefix": ["alert-component", "callout-component"],
+		"scope": ["blade"],
+		"body": [
+            "<x-callout variant=\"${1|secondary,success,warning,danger|}\">${2}</x-callout>",
+		],
+		"description": "Inserts a standardised Flux:callout"
+	},
+    "Files Component": {
+		"prefix": ["files-component"],
+		"scope": ["blade"],
+		"body": [
+            "<x-files",
+            "    ${1:can-delete
+            "    ${2:delete-callback=\"callback\"}",
+            "    }:${3|$files,files=\"$files\"|}"
+            "/>",
+		],
+		"description": "Inserts a standardised form"
+	},
+    "Form Component": {
+		"prefix": ["form-component"],
+		"scope": ["blade"],
+		"body": [
+            "<x-form :\\$form />",
+		],
+		"description": "Inserts a standardised form"
+	},
+    "Icon Component": {
+		"prefix": ["icon-component"],
+		"scope": ["blade"],
+		"body": [
+            "<x-icon :${1|icon,file-extension|}=\"${2}\" />",
+		],
+		"description": "Inserts a standardised flux:icon"
+	},
+    "Logs Component": {
+		"prefix": ["logs-component"],
+		"scope": ["blade"],
+		"body": [
+            "<x-logs :model=\"\\$${1:model}\" />",
+		],
+		"description": "Inserts a standardised Flux:mdoal"
+	},
+    "Modal Component": {
+		"prefix": ["modal-component"],
+		"scope": ["blade"],
+		"body": [
+            "<x-modal name=\"${1:modal-name}\" title=\"${2:I AM MODAL}\">",
+            "    $3",
+            "</x-modal>",
+		],
+		"description": "Inserts a standardised Flux:mdoal"
+	},
+    "Tab Array": {
+		"prefix": ["tab-array"],
+		"scope": ["blade"],
+		"body": [
+            "\\$this->tabs = [",
+            "    [",
+            "        'icon'  => Icons::${1:icons}(),",
+            "        'label' => '${2:dictionary}.${1:name}',",
+            "    ],",
+            "];",
+		],
+		"description": "Inserts a standardised array for the tabs component"
+	},
+    "Tab Component": {
+		"prefix": ["tab-component"],
+		"scope": ["blade"],
+		"body": [
+            "<x-tab target=\"${1:dictionary}.${2:name}\">",
+            "    $3",
+            "</x-tab>",
+		],
+		"description": "Inserts a standardised Flux:tab"
+	},
+    "Tabs Component": {
+		"prefix": ["tabs-component"],
+		"scope": ["blade"],
+		"body": [
+            "<x-tabs :\\$tabs>",
+            "    tab-component${1}",
+            "</x-tabs>",
+		],
+		"description": "Inserts a standardised Flux:tabs"
+	},
+}

@@ -1,0 +1,18 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Base\Command;
+
+class {{ class }} extends Command
+{
+    protected $description = 'Command description';
+    protected $signature   = '{{ command }}';
+
+    public function handle()
+    {
+        $platform = $this->argument('platform');
+    }
+}

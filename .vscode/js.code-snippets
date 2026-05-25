@@ -1,0 +1,11 @@
+{
+    // See https://code.visualstudio.com/docs/editor/userdefinedsnippets for snippet functionality
+    "Logging": {
+		"prefix": ["console.log", "log"],
+		"scope": "javascript",
+		"body": [
+			"console.${2|log,error,info,warn|}(${1:$TM_LINE_NUMBER});"
+		],
+		"description": "Quick console.log"
+	}
+}

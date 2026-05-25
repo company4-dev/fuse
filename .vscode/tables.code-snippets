@@ -1,0 +1,25 @@
+{
+    // See https://code.visualstudio.com/docs/editor/userdefinedsnippets for snippet functionality
+    "Table Filter": {
+		"prefix": ["filter", "table-filter"],
+		"scope": "php",
+		"body": [
+			"public function filters(): array",
+            "{",
+            "    return [];",
+            "}"
+		],
+		"description": "Allows you to modify the table query"
+	},
+    "Table Query": {
+		"prefix": ["query", "table-query"],
+		"scope": "php",
+		"body": [
+			"public function query(\\$query, \\$id = null, array \\$filter = [], ?array \\$data = [])",
+            "{",
+            "    return \\$query$1;",
+            "}"
+		],
+		"description": "Allows you to modify the table query"
+	},
+}

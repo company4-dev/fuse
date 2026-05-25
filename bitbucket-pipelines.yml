@@ -1,0 +1,182 @@
+image: laravelsail/php84-composer:latest
+
+definitions:
+  caches:
+    php-extensions: ~/.cache/php-extensions
+
+pipelines:
+  branches:
+    main:
+      - step:
+          name: Build
+          caches:
+            - composer
+            - node
+            - php-extensions
+          script:
+            # Install system dependencies
+            - apt-get update && apt-get install -y libicu-dev libpng-dev libjpeg-dev libfreetype6-dev >/dev/null 2>&1
+
+            # Install Node.js 24
+            - curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
+            - apt-get clean && apt-get update && apt-get install -y nodejs
+
+            # Install Node dependencies
+            - npm install
+
+            # Set memory limit to -1
+            - echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/memory.ini
+
+            # CODING STANDARDS - ESLint
+            - |
+              echo "Running ESLint..."
+              npx eslint --fix
+
+            # # Prepare for Tests
+            # - Add Flux credentials
+            - composer config http-basic.composer.fluxui.dev "$FLUX_USERNAME" "$FLUX_LICENSE_KEY"
+
+            # - Setup Laravel environment BEFORE composer install
+            - cp .env.pipeline .env
+
+            # - Check if intl extension is already cached
+            - |
+              if [ -f ~/.cache/php-extensions/intl.so ]; then
+                echo "Using cached intl extension"
+                cp ~/.cache/php-extensions/intl.so $(php-config --extension-dir)/intl.so
+                echo "extension=intl.so" > /usr/local/etc/php/conf.d/docker-php-ext-intl.ini
+              else
+                echo "Compiling intl extension (this may take a few minutes)..."
+                docker-php-ext-install intl > /dev/null 2>&1 || echo "Intl compilation failed"
+
+                # Cache the compiled extension
+                mkdir -p ~/.cache/php-extensions
+                cp $(php-config --extension-dir)/intl.so ~/.cache/php-extensions/intl.so 2>/dev/null || echo "Failed to cache intl"
+              fi
+
+            # - Check if sockets extension is already cached
+            - |
+              if [ -f ~/.cache/php-extensions/sockets.so ]; then
+                echo "Using cached sockets extension"
+                cp ~/.cache/php-extensions/sockets.so $(php-config --extension-dir)/sockets.so
+                echo "extension=sockets.so" > /usr/local/etc/php/conf.d/docker-php-ext-sockets.ini
+              else
+                echo "Compiling sockets extension..."
+                docker-php-ext-install sockets > /dev/null 2>&1 || echo "Sockets compilation failed"
+
+                # Cache the compiled extension
+                cp $(php-config --extension-dir)/sockets.so ~/.cache/php-extensions/sockets.so 2>/dev/null || echo "Failed to cache sockets"
+              fi
+
+            # - Check if gd extension is already cached
+            - |
+              if [ -f ~/.cache/php-extensions/gd.so ]; then
+                echo "Using cached gd extension"
+                cp ~/.cache/php-extensions/gd.so $(php-config --extension-dir)/gd.so
+                echo "extension=gd.so" > /usr/local/etc/php/conf.d/docker-php-ext-gd.ini
+              else
+                echo "Compiling gd extension..."
+                docker-php-ext-install -j$(nproc) gd > /dev/null 2>&1 || echo "GD compilation failed"
+
+                # Cache the compiled extension
+                cp $(php-config --extension-dir)/gd.so ~/.cache/php-extensions/gd.so 2>/dev/null || echo "Failed to cache gd"
+              fi
+
+            # - Install Composer dependencies
+            - COMPOSER_ALLOW_SUPERUSER=1 composer install --no-interaction --prefer-dist --optimize-autoloader
+
+            # - Additional Laravel Set-up
+            - |
+              # - Set up Platforms
+              echo '{}' > storage/app/platform_statuses.json
+
+            # Coding Standards - PHP
+            # - Collect PHP Files for processing
+            - |
+              PHP_FILES=$(find . -type d \( \
+                -path './vendor' -o \
+                -path './node_modules' -o \
+                -path './storage' -o \
+                -path './public' -o \
+                -path './.git' -o \
+                -path './resources/views' -o \
+                -path './bootstrap/cache' -o \
+                -path './Platforms' \
+              \) -prune -o -type f -name '*.php' -print)
+
+            # - Rector
+            - |
+              echo "Running Rector..."
+              vendor/bin/rector --dry-run process $PHP_FILES
+
+            # - Pint
+            - |
+              echo "Running Pint..."
+              vendor/bin/pint --parallel --test $PHP_FILES
+
+            # - Larastan
+            - |
+              echo "Running Larastan..."
+              vendor/bin/phpstan analyse $PHP_FILES --memory-limit=-1
+
+            # - PHPCS
+            - |
+              echo "Running PHPCS..."
+              vendor/bin/phpcs $PHP_FILES
+
+            # Bump coverage
+            - |
+              COVERAGE=$(cat ./storage/app/coverage.txt)
+
+              if [[ $COVERAGE != "100" ]]
+              then
+                  COVERAGE=`php -r "echo $COVERAGE + 0.1;"`
+
+                  echo $COVERAGE > ./storage/app/coverage.txt
+                  git add ./storage/app/coverage.txt
+              fi
+
+            # Set-up Git
+            - |
+              git config --global user.email "ci@jellyhaus.com"
+              git config --global user.name "Bitbucket CI"
+              git checkout main
+              git pull origin main
+
+            # Update release
+            - |
+              # Tag Release
+              git fetch --tags origin
+
+              YEAR_MONTH=$(date +'%y.%-m')
+              MONTHLY_TAGS=$(git tag -l "${YEAR_MONTH}.*" | sort -V)
+
+              if [ -z "$MONTHLY_TAGS" ]; then
+                MONTHLY_BUILD_NUMBER=1
+              else
+                LATEST_TAG=$(echo "$MONTHLY_TAGS" | tail -n 1)
+                LATEST_BUILD_NUMBER=$(echo "$LATEST_TAG" | cut -d'.' -f3)
+                MONTHLY_BUILD_NUMBER=$((LATEST_BUILD_NUMBER + 1))
+              fi
+
+              VERSION="${YEAR_MONTH}.${MONTHLY_BUILD_NUMBER}"
+
+            # Update composer version
+            - |
+              echo $VERSION > storage/app/version.txt
+              git add storage/app/version.txt
+
+            # Commit changes
+            - |
+              git commit -m "Build updates [skip ci]"
+              git push origin HEAD
+
+              git tag -a "$VERSION" -m "Release version $VERSION"
+              git push origin "$VERSION"
+
+            # Trigger build pipeline for individual Platforms
+            - pipe: atlassian/trigger-pipeline:5.10.1
+              variables:
+                BITBUCKET_ACCESS_TOKEN: "$BITBUCKET_ACCESS_TOKEN"
+                REF_NAME: 'main'
+                REPOSITORY: 'opsfm'

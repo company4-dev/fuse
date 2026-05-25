@@ -1,0 +1,27 @@
+{
+    // See https://code.visualstudio.com/docs/editor/userdefinedsnippets for snippet functionality
+    "Pege Menu Item: Link": {
+		"prefix": ["page-menu-item-link"],
+		"scope": ["blade"],
+		"body": [
+            "[",
+            "    'icon'  => Icons::${1:add}(),",
+            "    'label' => ['phrases.${2:add}', 'dictionary.${3:thing}'],",
+            "    'route' => '${4:platform}.pages::${5:feature}.${6:add}',",
+            "],",
+		],
+		"description": "Inserts a the required fields for a page menu item, passed to $this->layout() in Livewire components"
+	},
+    "Pege Menu Item: Modal": {
+		"prefix": ["page-menu-item-modal"],
+		"scope": ["blade"],
+		"body": [
+            "[",
+            "    'icon'  => Icons::${1:add}(),",
+            "    'label' => ['phrases.${2:add}', 'dictionary.${3:thing}'],",
+            "    'modal' => '${4:modal_id}',",
+            "],",
+		],
+		"description": "Inserts a the required fields for a page menu item, passed to $this->layout() in Livewire components"
+	},
+}

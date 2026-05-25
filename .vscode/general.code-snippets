@@ -1,0 +1,27 @@
+{
+    // See https://code.visualstudio.com/docs/editor/userdefinedsnippets for snippet functionality
+    "Email": {
+		"prefix": ["email", "mail"],
+		"scope": "php",
+		"body": [
+			"Mail::to(${1:\\$emails})->queue(new ${2:EmailClass}(${3:\\$data}));"
+		],
+		"description": "Sets up Laravel's ajax functionality"
+	},
+    "Log": {
+		"prefix": ["log", "console.log"],
+		"scope": "blade,php",
+		"body": [
+			"\\App\\Helpers\\Log::${2|debug,info,notice,warning,error,critical,alert,emergency|}($1);"
+		],
+		"description": "Log something"
+	},
+    "Str Class": {
+		"scope": "php",
+		"prefix": ["use-str"],
+		"body": [
+			"use Illuminate\\Support\\Str;"
+		],
+		"description": "Add use for Str::class"
+	},
+}
