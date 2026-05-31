@@ -103,6 +103,14 @@ jobs:
                 echo "$COMMITS" >> $GITHUB_OUTPUT
                 echo "EOF" >> $GITHUB_OUTPUT
 
+            - name: Bump composer version
+              id: version
+              run: |
+                CURRENT_VERSION=$(node -p "require('./composer.json').version")
+                NEXT_VERSION=$(node -e "const v = '$CURRENT_VERSION'.split('.'); v[1]++; console.log(v.join('.'))")
+                composer config version $NEXT_VERSION
+                VERSION=$(node -p "require('./composer.json').version")
+                echo "version=$VERSION" >> $GITHUB_OUTPUT
 
             - name: Create GitHub Release
               uses: softprops/action-gh-release@v2
