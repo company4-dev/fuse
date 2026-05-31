@@ -1,51 +1,103 @@
 name: Deploy from Bitbucket Source
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - jellybean
+    workflow_dispatch:
+    push:
+        branches:
+            - jellybean
+
+concurrency:
+    group: production-deploy
+    queue: max
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+    deploy:
+        runs-on: ubuntu-latest
+        environment: Testing
+        permissions:
+            contents: write
 
-    steps:
-      - name: Checkout GitHub repo (deployment scripts)
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout GitHub repo (deployment scripts)
+              uses: actions/checkout@v4
 
-      - name: Configure SSH for Bitbucket
-        run: |
-            mkdir -p ~/.ssh
-            echo "${{ secrets.BITBUCKET_SSH_KEY }}" > ~/.ssh/id_rsa
-            chmod 600 ~/.ssh/id_rsa
-            ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "24"
+                  cache: "npm"
 
-      - name: Clone Bitbucket repo
-        run: |
-            git clone git@bitbucket.org:jellyhaus/jellybean.git bitbucket-source
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.4
+                  tools: composer:v2
+                  coverage: xdebug
 
-      - name: Use Bitbucket code for packaging
-        run: |
-          cd bitbucket-source
-          # run your build / packaging steps here
-          # composer install --no-dev
-          # npm ci && npm run build
-          # etc
+            - name: Set-up Git
+              run: |
+                BRANCH="${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}"
+                git config --global user.email "ci@company4.dev"
+                git config --global user.name "GitHub CI"
+                git fetch origin "$BRANCH"
+                git checkout "$BRANCH"
 
-      - name: Create release archive
-        run: |
-            cd bitbucket-source
-            zip -r ../release.zip .
+            - name: Configure SSH for Bitbucket
+              run: |
+                  mkdir -p ~/.ssh
+                  echo "${{ secrets.BITBUCKET_SSH_KEY }}" > ~/.ssh/id_rsa
+                  chmod 600 ~/.ssh/id_rsa
+                  ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
 
-      - name: Upload Release Asset
-        uses: softprops/action-gh-release@v2
-        with:
-            tag_name: bitbucket-${{ github.run_number }}
-            name: "Bitbucket Release ${{ github.run_number }}"
-            files: release.zip
+            # - name: Coding standards for local repo
+            #   run: |
+            #     # NPM
+            #     npm install
+            #     npx eslint --fix
 
-      # Example: deploy artifact
-      - name: Deploy
-        run: |
-          echo "Run your deployment steps here"
+            #     # PHP
+            #     composer install
+            #     vendor/bin/rector process --dry-run
+            #     vendor/bin/pint --parallel --ansi --no-interaction
+            #     vendor/bin/phpstan analyse
+            #     vendor/bin/phpcs
+
+            - name: Clone Bitbucket repo
+              run: |
+                  git clone git@bitbucket.org:jellyhaus/jellybean.git bitbucket-source
+
+            - name: Set-up source
+              run: |
+                  cd bitbucket-source
+
+                  # Set-up Flux
+                  composer config http-basic.composer.fluxui.dev "${{ secrets.FLUX_USERNAME }}" "${{ secrets.FLUX_LICENSE_KEY }}"
+
+                  cp .env.example .env
+
+                  php artisan key:generate
+
+                  # run your build / packaging steps here
+                  # composer install --no-dev
+                  # npm ci && npm run build
+                  # etc
+
+            - name: Create release archive
+              run: |
+                  cd bitbucket-source
+                  zip -r ../release.zip .
+
+            - name: Upload Release Asset
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: bitbucket-${{ github.run_number }}
+                  name: "Bitbucket Release ${{ github.run_number }}"
+                  files: release.zip
+
+            - name: Create GitHub Release
+              uses: softprops/action-gh-release@v2
+              with:
+                body: ${{ steps.changelog.outputs.commits }}
+                draft: false
+                prerelease: false
+                tag_name: "${{ steps.version.outputs.version }}"
