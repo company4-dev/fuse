@@ -21,11 +21,11 @@ jobs:
             - name: Checkout GitHub repo (deployment scripts)
               uses: actions/checkout@v4
 
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "24"
-                  cache: "npm"
+            # - name: Setup Node
+            #   uses: actions/setup-node@v4
+            #   with:
+            #       node-version: "24"
+            #       cache: "npm"
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
