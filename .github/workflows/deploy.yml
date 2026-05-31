@@ -33,6 +33,18 @@ jobs:
           # npm ci && npm run build
           # etc
 
+      - name: Create release archive
+        run: |
+            cd bitbucket-source
+            zip -r ../release.zip .
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
+        with:
+            tag_name: bitbucket-${{ github.run_number }}
+            name: "Bitbucket Release ${{ github.run_number }}"
+            files: release.zip
+
       # Example: deploy artifact
       - name: Deploy
         run: |
