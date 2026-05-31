@@ -1,0 +1,41 @@
+name: Deploy from Bitbucket Source
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - jellybean
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout GitHub repo (deployment scripts)
+        uses: actions/checkout@v4
+
+      - name: Configure SSH for Bitbucket
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.BITBUCKET_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          # Add Bitbucket to known hosts
+          ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
+
+      - name: Clone Bitbucket main repo
+        run: |
+          git clone git@bitbucket.org:jellyhaus/jelybean.git bitbucket-source
+
+      - name: Use Bitbucket code for packaging
+        run: |
+          cd bitbucket-source
+          # run your build / packaging steps here
+          # composer install --no-dev
+          # npm ci && npm run build
+          # etc.
+
+      # Example: deploy artifact
+      - name: Deploy
+        run: |
+          echo "Run your deployment steps here"
