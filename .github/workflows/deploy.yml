@@ -16,16 +16,14 @@ jobs:
 
       - name: Configure SSH for Bitbucket
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.BITBUCKET_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+            mkdir -p ~/.ssh
+            echo "${{ secrets.BITBUCKET_SSH_KEY }}" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+            ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
 
-          # Add Bitbucket to known hosts
-          ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
-
-      - name: Clone Bitbucket main repo
+      - name: Clone Bitbucket repo
         run: |
-          git clone git@bitbucket.org:jellyhaus/jelybean.git bitbucket-source
+            git clone git@bitbucket.org:jellyhaus/jellybean.git bitbucket-source
 
       - name: Use Bitbucket code for packaging
         run: |
