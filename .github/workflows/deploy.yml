@@ -33,7 +33,7 @@ jobs:
           # run your build / packaging steps here
           # composer install --no-dev
           # npm ci && npm run build
-          # etc.
+          # etc
 
       # Example: deploy artifact
       - name: Deploy
