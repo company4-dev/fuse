@@ -70,17 +70,7 @@ jobs:
               run: |
                   cd bitbucket-source
 
-                  # Set-up Flux
-                  composer config http-basic.composer.fluxui.dev "${{ secrets.FLUX_USERNAME }}" "${{ secrets.FLUX_LICENSE_KEY }}"
-
-                  cp .env.example .env
-
-                  php artisan key:generate
-
-                  # run your build / packaging steps here
-                  # composer install --no-dev
-                  # npm ci && npm run build
-                  # etc
+                  # Do more stuff
 
             - name: Create release archive
               run: |
