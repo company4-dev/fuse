@@ -41,7 +41,7 @@ return [
         'platforms' => [
             'driver' => 'local',
             'root'   => base_path('/Platforms'),
-            'serve'  => true,
+            'serve'  => false,
             'throw'  => false,
             'report' => false,
         ],
@@ -58,7 +58,7 @@ return [
         'root' => [
             'driver' => 'local',
             'root'   => base_path(''),
-            'serve'  => true,
+            'serve'  => false,
             'throw'  => false,
             'report' => false,
         ],
