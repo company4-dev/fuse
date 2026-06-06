@@ -104,7 +104,7 @@ jobs:
                 composer config version $NEXT_VERSION
                 VERSION=$(node -p "require('./composer.json').version")
                 echo "version=$VERSION" >> $GITHUB_OUTPUT
-                echo "$VERSION" > /bitbucket-source/storage/app/version.txt
+                echo "$VERSION" > ./bitbucket-source/storage/app/version.txt
 
                 # Commit and push the version bump
                 git add composer.json
