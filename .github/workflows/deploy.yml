@@ -39,7 +39,7 @@ jobs:
                 BRANCH="${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}"
                 git config --global user.email "ci@company4.dev"
                 git config --global user.name "GitHub CI"
-                git fetch origin "$BRANCH"
+                git fetch origin
                 git checkout "$BRANCH"
 
             - name: Configure SSH for Bitbucket
