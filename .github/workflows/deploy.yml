@@ -72,11 +72,6 @@ jobs:
 
                   # Do more stuff
 
-            - name: Create release archive
-              run: |
-                  cd bitbucket-source
-                  zip -r ../release.zip .
-
             - name: Generate changelog
               id: changelog
               run: |
@@ -114,6 +109,11 @@ jobs:
                 # Create and push the tag
                 git tag -a "$VERSION" -m "Release $VERSION"
                 git push origin "$VERSION"
+
+            - name: Create release archive
+              run: |
+                  cd bitbucket-source
+                  zip -r ../release.zip .
 
             - name: Create GitHub Release
               uses: softprops/action-gh-release@v2
